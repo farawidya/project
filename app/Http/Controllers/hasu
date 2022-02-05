@@ -1,0 +1,137 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use App\Models\Moms;
+use Illuminate\Http\Request;
+use App\Http\Controllers\MomController;
+use App\Http\Controllers\Controller;
+
+class ManmomController extends Controller
+{
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function index()
+    {
+        $manmom = Manmom::all();
+
+        return view('manmom.managementmom', [
+            'manmom' => $manmom
+        ]);
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function create()
+    {
+        return view('manmom.create');
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function store(Request $request)
+    {
+        $request->validate([
+            'peserta' => 'required',
+            'tanggal' => 'required',
+            'tempat' => 'required',
+            'waktu' => 'required',
+            'agenda' => 'required',
+            'hasil' => 'required'
+        ]);
+        $array = $request->only([
+            'peserta', 'tanggal', 'tempat', 'waktu', 'agenda', 'hasil'
+        ]);
+        $array['password'] = bcrypt($array['password']);
+        $user = Manmom::create($array);
+        return redirect()->route('manmom.manegementmom')
+            ->with('success_message', 'Berhasil menambah');
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function show($id)
+    {
+        $manmom = Manmom::all();
+
+        return view('manmom.show', [
+            'manmom' => $manmom
+        ]);
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function edit($id)
+{
+    $manmom = manmom::find($id);
+    if (!$manmom) return redirect()->route('manmom.managementmom')
+        ->with('error_message', 'User dengan id'.$id.' tidak ditemukan');
+
+    return view('manmom.edit', [
+        'manmom' => $manmom
+    ]);
+    }
+
+
+    public function update(Request $request, $id)
+    {
+        $request->validate([
+            'peserta' => 'required',
+            'tanggal' => 'required',
+            'tempat' => 'required',
+            'waktu' => 'required',
+            'agenda' => 'required',
+            'hasil' => 'required'
+        ]);
+
+        $manmom = Manmom::find($id);
+        $manmom->peserta = $request->peserta;
+        $manmom->tanggal = $request->tanggal;
+        $manmom->tempat = $request->tempat;
+        $manmom->waktu = $request->waktu;
+        $manmom->agenda = $request->agenda;
+        $manmom->hasil = $request->hasil;
+        if ($request->password) $manmom->password = bcrypt($request->password);
+        $manmom->save();
+
+        return redirect()->route('manmom.managementmom')
+            ->with('success_message', 'Berhasil mengubah');
+    }
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy(Request $request, $id)
+    {
+        $manmom = Manmom::find($id);
+
+        if ($id == $request->manmom()->id) return redirect()->route('manmom.managementmom')
+            ->with('error_message', 'Anda tidak dapat menghapus');
+
+        if ($manmom) $manmom->delete();
+
+        return redirect()->route('manmom.manegementmom')
+            ->with('success_message', 'Berhasil menghapus');
+
+    }
+}

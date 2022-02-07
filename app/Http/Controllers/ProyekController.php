@@ -16,7 +16,7 @@ class ProyekController extends Controller
     {
         $data['title'] = 'Data';
         $data['categories'] = ['Klien1', 'Klien2', 'Klien3'];
-        $data['statusproject'] = ['Testing', 'Done', 'Doing'];
+        $data['statusproject'] = ['Masuk', 'Berjalan', 'Pending', 'Selesai'];
         $data['q'] = $request->q;
         $data['proyek'] = Proyek::where('nama_project', 'like', '%' . $request->q . '%')->get();
         return view('proyek.proyek', $data);
@@ -31,7 +31,7 @@ class ProyekController extends Controller
     {
         $data['title'] = 'Tambah';
         $data['categories'] = ['Klien1', 'Klien2', 'Klien3'];
-        $data['statusproject'] = ['Testing', 'Done', 'Doing'];
+        $data['statusproject'] = ['Masuk', 'Berjalan', 'Pending', 'Selesai'];
         return view('proyek.create', $data);
     }
 
@@ -46,6 +46,8 @@ class ProyekController extends Controller
         $request->validate([
             'nama_project' => 'required',
             'deskripsi_project' => 'required',
+            'waktumulai' => 'required',
+            'waktuberakhir' => 'required',
             'nama_klien' => 'required',
             'waktu' => 'required',
             'status_project' => 'required',
@@ -54,6 +56,8 @@ class ProyekController extends Controller
         $proyek = new Proyek();
         $proyek->nama_project = $request->nama_project;
         $proyek->deskripsi_project = $request->deskripsi_project;
+        $proyek->waktumulai = $request->waktumulai;
+        $proyek->waktuberakhir = $request->waktuberakhir;
         $proyek->nama_klien = $request->nama_klien;
         $proyek->waktu = $request->waktu;
         $proyek->status_project = $request->status_project;
@@ -78,8 +82,10 @@ class ProyekController extends Controller
     {
         $data['title'] = 'Detail';
         $data['nama_project'] = ['nama_project'];
+        $data['waktumulai'] = ['waktumulai'];
+        $data['waktuberakhir'] = ['waktuberakhir'];
         $data['nama_klien'] = ['Klien1', 'Klien2', 'Klien3'];
-        $data['status_project'] = ['Testing', 'Done', 'Doing'];
+        $data['status_project'] = ['Masuk', 'Berjalan', 'Pending', 'Selesai'];
         $data['deskripsi_project'] = ['deskripsi_project'];
         $data['waktu'] = ['waktu'];
         $data['proyek'] = $proyek;
@@ -97,7 +103,7 @@ class ProyekController extends Controller
         $data['title'] = 'Ubah';
         $data['row'] = $proyek;
         $data['categories'] = ['Klien1', 'Klien2', 'Klien3'];
-        $data['statusproject'] = ['Testing', 'Done', 'Doing'];
+        $data['statusproject'] = ['Masuk', 'Berjalan', 'Pending', 'Selesai'];
         return view('proyek.edit', $data);
     }
 
@@ -112,6 +118,8 @@ class ProyekController extends Controller
     {
         $request->validate([
             'nama_project' => 'required',
+            'waktumulai' => 'required',
+            'waktuberakhir' => 'required',
             'deskripsi_project' => 'required',
             'nama_klien' => 'required',
             'waktu' => 'required',
@@ -119,6 +127,8 @@ class ProyekController extends Controller
         ]);
 
         $proyek->nama_project = $request->nama_project;
+        $proyek->waktumulai = $request->waktumulai;
+        $proyek->waktuberakhir = $request->waktuberakhir;
         $proyek->deskripsi_project = $request->deskripsi_project;
         $proyek->nama_klien = $request->nama_klien;
         $proyek->waktu = $request->waktu;

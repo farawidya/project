@@ -6,11 +6,9 @@ use App\Http\Controllers\MomController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\UserController;
-use App\Http\Controllers\ManmomController;
 use App\Http\Controllers\DashboardController;
-use App\Http\Controllers\managementdeveloper;
+use App\Http\Controllers\DeveloperController;
 use App\Http\Controllers\MarketingController;
-use App\Http\Controllers\ManagementmomController;
 use App\Http\Controllers\ProyekController;
 
 
@@ -46,4 +44,4 @@ Route::resource('mom', MomController::class);
 
 Route::resource('marketing', MarketingController::class);
 
-Route::resource('devlop', managementdeveloper::class);
+Route::resource('devlop', DeveloperController::class);

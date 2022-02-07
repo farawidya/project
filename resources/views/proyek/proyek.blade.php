@@ -27,8 +27,10 @@
                 <tr>
                     <th>No.</th>
                     <th>Nama Project</th>
-                    <th>Nama Klien</th>
                     <th>Deskripsi Project</th>
+                    <th>Waktu Mulai</th>
+                    <th>Waktu Berakhir</th>
+                    <th>Nama Klien</th>
                     <th>Waktu</th>
                     <th>Status Project</th>
                     <th>Action</th>  
@@ -39,17 +41,19 @@
                 <tr>
                     <td>{{ $no++ }}</td>
                     <td>{{ $proyek->nama_project}}</td>
-                    <td>{{ $proyek->nama_klien }}</td>
                     <td>{{ $proyek->deskripsi_project }}</td>
+                    <td>{{ $proyek->waktumulai }}</td>
+                    <td>{{ $proyek->waktuberakhir }}</td>
+                    <td>{{ $proyek->nama_klien }}</td>
                     <td>{{ $proyek->waktu }}</td>
                     <td>{{ $proyek->status_project }}</td>
                     <td>
-                        <a class="btn btn-sm btn-info modal-title" id="exampleModalLabel"  data-bs-toggle="modal" data-bs-target="#show">Show</a>
-                        <a class="btn btn-sm btn-warning modal-title" id="exampleModalLabel"  data-bs-toggle="modal" data-bs-target="#edit">Edit</a>
+                        <a class="btn btn-xs btn-info modal-title" id="exampleModalLabel"  data-bs-toggle="modal" data-bs-target="#show">Show</a>
+                        <a class="btn btn-xs btn-warning modal-title" id="exampleModalLabel"  data-bs-toggle="modal" data-bs-target="#edit">Edit</a>
                         <form method="POST" action="{{ route('proyek.destroy', $proyek) }}" style="display: inline-block;">
                             @csrf
                             @method('DELETE')
-                            <button class="btn btn-sm btn-danger"
+                            <button class="btn btn-xs btn-danger"
                                 >Delete</button>
                         </form>
                     </td>
@@ -73,6 +77,22 @@
                             <input class="form-control" placeholder="Nama Project" type="text" name="nama_project" value="{{ old('nama_project') }}" />
                         </div>
                         <div class="form-group">
+                            <label>Deskripsi Project <span class="text-danger">*</span></label>
+                            <textarea class="form-control" type="text-area" placeholder="Deskripsi Project" name="deskripsi_project" value="{{ old('deskripsi_project') }}" /></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label>Waktu Mulai <span class="text-danger">*</span></label>
+                            <input class="form-control" type="datetime-local" placeholder="Waktu Mulai" name="waktumulai" value="{{ old('waktumulai') }}" />
+                        </div>
+                        <div class="form-group">
+                            <label>Waktu Berakhir <span class="text-danger">*</span></label>
+                            <input class="form-control" type="datetime-local" placeholder="Waktu Berakhir" name="waktuberakhir" value="{{ old('waktuberakhir') }}" />
+                        </div>
+                        <div class="form-group">
+                            <label>Waktu <span class="text-danger">*</span></label>
+                            <input class="form-control" type="time" placeholder="Waktu" name="waktu" value="{{ old('waktu') }}" />
+                        </div>
+                        <div class="form-group">
                             <label>Nama Klien <span class="text-danger">*</span></label>
                             <select class="form-control" name="nama_klien" />
                             @foreach ($categories as $category)
@@ -83,14 +103,6 @@
                                 @endif
                             @endforeach
                             </select>
-                        </div>
-                        <div class="form-group">
-                            <label>Deskripsi Project <span class="text-danger">*</span></label>
-                            <textarea class="form-control" type="text-area" placeholder="Deskripsi Project" name="deskripsi_project" value="{{ old('deskripsi_project') }}" /></textarea>
-                        </div>
-                        <div class="form-group">
-                            <label>Waktu <span class="text-danger">*</span></label>
-                            <input class="form-control" type="time" placeholder="Waktu" name="waktu" value="{{ old('waktu') }}" />
                         </div>
                         <div class="form-group">
                             <label>Status Project <span class="text-danger">*</span></label>
@@ -129,6 +141,18 @@
                         <input class="form-control" placeholder="Nama Project" id="huruf" type="text" name="nama_project" value="{{ old('nama_project') }}" />
                     </div>
                     <div class="form-group">
+                        <label>Deskripsi Project <span class="text-danger">*</span></label>
+                        <textarea class="form-control" type="text-area" placeholder="Deskripsi Project" name="deskripsi_project" value="{{ old('deskripsi_project') }}" /></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label>Waktu Mulai <span class="text-danger">*</span></label>
+                        <input class="form-control" type="datetime-local" placeholder="Waktu Mulai" name="waktumulai" value="{{ old('waktumulai') }}" />
+                    </div>
+                    <div class="form-group">
+                        <label>Waktu Berakhir <span class="text-danger">*</span></label>
+                        <input class="form-control" type="datetime-local" placeholder="Waktu Berakhir" name="waktuberakhir" value="{{ old('waktuberakhir') }}" />
+                    </div>
+                    <div class="form-group">
                         <label>Nama Klien <span class="text-danger">*</span></label>
                         <select class="form-control" name="nama_klien" />
                         @foreach ($categories as $category)
@@ -139,10 +163,6 @@
                             @endif
                         @endforeach
                         </select>
-                    </div>
-                    <div class="form-group">
-                        <label>Deskripsi Project <span class="text-danger">*</span></label>
-                        <textarea class="form-control" type="text-area" placeholder="Deskripsi Project" name="deskripsi_project" value="{{ old('deskripsi_project') }}" /></textarea>
                     </div>
                     <div class="form-group">
                         <label>Waktu <span class="text-danger">*</span></label>
@@ -186,6 +206,18 @@
                 <input class="form-control" placeholder="Nama Project" id="huruf" type="text" name="nama_project" value="{{ old('nama_project') }}" / disabled readonly>
             </div>
             <div class="form-group">
+                <label>Deskripsi Project <span class="text-danger">*</span></label>
+                <textarea class="form-control" type="text-area" placeholder="Deskripsi Project" name="deskripsi_project" value="{{ old('deskripsi_project') }}" / disabled readonly></textarea>
+            </div>
+            <div class="form-group">
+                <label>Waktu Mulai <span class="text-danger">*</span></label>
+                <input class="form-control" type="datetime-local" placeholder="Waktu Mulai" name="waktumulai" value="{{ old('waktumulai') }}" />
+            </div>
+            <div class="form-group">
+                <label>Waktu Berakhir <span class="text-danger">*</span></label>
+                <input class="form-control" type="datetime-local" placeholder="Waktu Berakhir" name="waktuberakhir" value="{{ old('waktuberakhir') }}" />
+            </div>
+            <div class="form-group">
                 <label>Nama Klien <span class="text-danger">*</span></label>
                 <select class="form-control" name="nama_klien" / disabled readonly>
                 @foreach ($categories as $category)
@@ -196,10 +228,6 @@
                     @endif
                 @endforeach
                 </select>
-            </div>
-            <div class="form-group">
-                <label>Deskripsi Project <span class="text-danger">*</span></label>
-                <textarea class="form-control" type="text-area" placeholder="Deskripsi Project" name="deskripsi_project" value="{{ old('deskripsi_project') }}" / disabled readonly></textarea>
             </div>
             <div class="form-group">
                 <label>Waktu <span class="text-danger">*</span></label>

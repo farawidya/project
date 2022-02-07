@@ -13,20 +13,26 @@ class CreateDevlopsTable extends Migration
      */
     public function up()
     {
-        Schema::create('devlop', function (Blueprint $table) {
+        Schema::create('devlops', function (Blueprint $table) {
             $table->id('devlop_id');
-            $table->text('Nama');
-            $table->string('Jenis_kelamin');
+            $table->text('nama');
+            $table->string('jenis_kelamin');
             $table->string('no_telp');
             $table->string('gmail');
+            $table->string('username');
+            $table->string('password');
             $table->timestamps();
         });
           /** gunakan script berikut jika ingin menambah data otomatis */
-          $categories = ['Doing', 'Kesehatan', 'Olahraga'];
+          $categories = ['Laki-Laki', 'Perempuan'];
           for ($a = 1; $a <= 15; $a++)
-              DB::table('tb_post')->insert([
-                  'post_title' => 'Judul Artikel ' . $a,
-                  'category' => $categories[array_rand($categories)],
+              DB::table('devlops')->insert([
+                  'nama' => 'Nama ' . $a,
+                  'jenis_kelamin' => $categories[array_rand($categories)],
+                  'no_telp' => '1919119 ' . $a,
+                  'gmail' => 'example@gmail.com ' . $a,
+                  'username' => 'username ' . $a,
+                  'password' => 'password ' . $a,
               ]);
     }
 
@@ -37,6 +43,6 @@ class CreateDevlopsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('devlop');
+        Schema::dropIfExists('devlops');
     }
 }

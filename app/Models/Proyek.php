@@ -14,8 +14,10 @@ class Proyek extends Model
     
     protected $fillable = [
         'nama_project',
-        'nama_klien',
         'deskripsi_project',
+        'waktumulai',
+        'waktuberakhir',
+        'nama_klien',
         'waktu',
         'status_project',
     ];

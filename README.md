@@ -1,6 +1,6 @@
-# Management-project
+# Admin-Lte-Master
 
-Project Developer Management-Project
+Master Admin
 
 ## Getting started
 
@@ -15,14 +15,14 @@ Already a pro? Just edit this README.md and make it your own. Want to make it ea
 
 ```
 cd existing_repo
-git remote add origin https://gitlab.com/raviutama123/management-project.git
+git remote add origin https://gitlab.com/raviutama123/admin-lte-master.git
 git branch -M main
 git push -uf origin main
 ```
 
 ## Integrate with your tools
 
-- [ ] [Set up project integrations](https://gitlab.com/-/experiment/new_project_readme_content:2fc5ab0a671074cc38cfac4dd4d74420?https://gitlab.com/raviutama123/management-project/-/settings/integrations)
+- [ ] [Set up project integrations](https://gitlab.com/-/experiment/new_project_readme_content:2fc5ab0a671074cc38cfac4dd4d74420?https://gitlab.com/raviutama123/admin-lte-master/-/settings/integrations)
 
 ## Collaborate with your team
 

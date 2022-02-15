@@ -50,12 +50,9 @@
 
                     <div class="card-footer">
                         <button type="submit" class="btn btn-primary">Simpan</button>
-                        <<<<<<< HEAD <a href="{{ route('users.index') }}" class="btn btn-default">
-                            =======
-                            <a href="{{ route('project.index') }}" class="btn btn-default">
-                                >>>>>>> cb57d675d686b355bce66e0346abe1ece6fe2195
-                                Batal
-                            </a>
+                        <a href="{{ route('users.index') }}" class="btn btn-default">
+                            Batal
+                        </a>
                     </div>
                 </div>
             </div>

@@ -263,22 +263,22 @@ return [
         [
             'text' => 'Management Marketing',
             'url'  => '/marketing',
-            'icon' => 'fas fa-cogs',
+            'icon' => 'fas fa-search-dollar',
         ],
         [
             'text' => 'Management Proyek',
             'url'  => '/proyek',
-            'icon' => 'fas fa-cogs',
+            'icon' => 'fas fa-tasks',
         ],
         [
             'text' => 'Management MOM',
             'url'  => '/mom',
-            'icon' => 'fas fa-cogs',
+            'icon' => 'fas fa-handshake',
         ],
         [
             'text' => 'Management Penomoran Dokumen',
-            'url'  => '/nomor',
-            'icon' => 'fas fa-file-alt',
+            'url'  => '/pendokumen',
+            'icon' => 'fas fa-cogs',
         ],
         [
             'text' => 'Dokumen Project',
@@ -288,6 +288,11 @@ return [
         [
             'text' => 'Management Jadwal Meeting',
             'url'  => '/jadmeeting',
+            'icon' => 'fas fa-cogs',
+        ],
+        [
+            'text' => 'Management Client',
+            'url'  => '/client',
             'icon' => 'fas fa-cogs',
         ],
     ],

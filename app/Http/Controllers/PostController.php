@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Post;
+use App\Models\Proyek;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 
 class PostController extends Controller
@@ -32,7 +34,6 @@ class PostController extends Controller
         $data['categories'] = ['Politik', 'Kesehatan', 'Olahraga'];
         return view('post.create', $data);
     }
-    
     /**
      * Store a newly created resource in storage.
      *

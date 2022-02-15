@@ -2,13 +2,15 @@
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\MomController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\UserController;
-use App\Http\Controllers\NomorController;
-use App\Http\Controllers\ProjekController;
-use App\Http\Controllers\DokumenController;
-use App\Http\Controllers\ProjectController;
+use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\DeveloperController;
+use App\Http\Controllers\MarketingController;
+use App\Http\Controllers\ProyekController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -153,3 +155,10 @@ Route::resource('post', PostController::class);
 Route::resource('nomor', NomorController::class);
 Route::resource('projek', ProjekController::class);
 Route::resource('manpen', DokumenController::class);
+Route::resource('proyek', ProyekController::class);
+
+Route::resource('mom', MomController::class);
+
+Route::resource('marketing', MarketingController::class);
+
+Route::resource('devlop', DeveloperController::class);

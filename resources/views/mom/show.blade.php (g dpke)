@@ -1,0 +1,53 @@
+@extends('adminlte::page')
+
+@section('title', 'Detail')
+
+@section('content_header')
+    <h1 class="m-0 text-dark">Detail</h1>
+@stop
+
+@section('content')
+    <form action="#" method="post">
+        @method('PUT')
+        @csrf
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-body">
+
+                        <div class="form-group">
+                            <label>Peserta <span class="text-danger">*</span></label>
+                            <input class="form-control" placeholder="Peserta" type="text" name="name" value="{{ old('peserta') }}" disabled readonly />
+                        </div>
+                            <label>Tanggal <span class="text-danger">*</span></label>
+                            <input class="form-control" placeholder="Tanggal" type="datetime-local" name="date" value="{{ old('tanggal') }}" disabled readonly />
+                        </div>
+                        <div class="form-group">
+                            <label>Tempat <span class="text-danger">*</span></label>
+                            <input class="form-control" placeholder="Tempat" type="number" name="number" value="{{ old('tempat') }}" disabled readonly />
+                        </div>
+                        <div class="form-group">
+                            <label>Waktu <span class="text-danger">*</span></label>
+                            <input class="form-control" type="time" placeholder="Waktu" name="time" value="{{ old('waktu') }}" disabled readonly />
+                        </div>
+                        <div class="form-group">
+                            <label>Agenda <span class="text-danger">*</span></label>
+                            <input class="form-control" type="text" placeholder="Agenda" name="name" value="{{ old('agenda') }}" disabled readonly />
+                        </div>
+                        <div class="form-group">
+                            <label>Hasil Pembahasan <span class="text-danger">*</span></label>
+                            <input class="form-control" type="text" placeholder="Hasil Pembahasan" name="hasil" value="{{ old('hasil') }}" disabled readonly />
+                        </div>
+                    </div>
+
+                    <div class="card-footer">
+                        <button type="submit" class="btn btn-primary">Simpan</button>
+                        <a href="/mom" class="btn btn-default">
+                            Batal
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    @stop
+    

@@ -1,6 +1,6 @@
 @extends('adminlte::page')
 
-@section('title', 'List kegiatan')
+@section('title', 'Dashboard')
 
 @section('content_header')
     <h1>Dashboard</h1>
@@ -52,7 +52,8 @@
                         <td>
                             <a class="btn btn-sm btn-info" href="{{ route('post.show', $row) }}">Show</a>
                             <a class="btn btn-sm btn-warning" href="{{ route('post.edit', $row) }}">Edit</a>
-                            <form method="POST" action="{{ route('post.destroy', $row) }}" style="display: inline-block;">
+                            <form method="POST" action="{{ route('post.destroy', $row) }}"
+                                style="display: inline-block;">
                                 @csrf
                                 @method('DELETE')
                                 <button class="btn btn-sm btn-danger"

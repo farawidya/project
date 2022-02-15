@@ -35,9 +35,6 @@
                                         <a href="{{ route('users.edit', $user) }}" class="btn btn-primary btn-xs">
                                             Edit
                                         </a>
-                                        <a href="{{ route('users.edit', $user) }}" class="btn btn-info btn-xs">
-                                            Detail
-                                        </a>
                                         <a href="{{ route('users.destroy', $user) }}"
                                             onclick="notificationBeforeDelete(event, this)" class="btn btn-danger btn-xs">
                                             Delete

@@ -45,7 +45,7 @@ return [
     |
     */
 
-    'logo' => '<b>Admin</b>BT',
+    'logo' => '<b>Admin</b>Project',
     'logo_img' => 'vendor/backpacker/Untitled-1-01.png',
     'logo_img_class' => 'brand-image img-circle elevation-3',
     'logo_img_xl' => null,
@@ -241,9 +241,9 @@ return [
             'icon' => 'fas fa-users',
         ],
         [
-            'text' => 'Management Project',
-            'url'  => '/project',
-            'icon' => 'fas fa-sitemap',
+            'text' => 'Management Project Manager',
+            'url'  => '/projek',
+            'icon' => 'fas fa-tasks',
         ],
         [
             'text' => 'Management Analis',
@@ -277,8 +277,8 @@ return [
         ],
         [
             'text' => 'Management Penomoran Dokumen',
-            'url'  => '/pendokumen',
-            'icon' => 'fas fa-cogs',
+            'url'  => '/nomor',
+            'icon' => 'fas fa-file-alt',
         ],
         [
             'text' => 'Dokumen Project',
@@ -328,7 +328,7 @@ return [
 
     'plugins' => [
         'Datatables' => [
-            'active' => false,
+            'active' => true,
             'files' => [
                 [
                     'type' => 'js',

@@ -32,7 +32,7 @@ class PostController extends Controller
         $data['categories'] = ['Politik', 'Kesehatan', 'Olahraga'];
         return view('post.create', $data);
     }
-
+    
     /**
      * Store a newly created resource in storage.
      *

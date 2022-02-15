@@ -8,6 +8,7 @@
 
 @section('content')
     <p>AUK</p>
+    <p>Nyobaa</p>
 @stop
 
 @section('css')

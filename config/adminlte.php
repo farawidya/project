@@ -277,7 +277,7 @@ return [
         ],
         [
             'text' => 'Management Penomoran Dokumen',
-            'url'  => '/pendokumen',
+            'url'  => '/nomor',
             'icon' => 'fas fa-cogs',
         ],
         [
@@ -287,7 +287,7 @@ return [
         ],
         [
             'text' => 'Management Jadwal Meeting',
-            'url'  => '/jadmeeting',
+            'url'  => '/meeting',
             'icon' => 'fas fa-cogs',
         ],
         [

@@ -24,7 +24,7 @@ class CreatePostTable extends Migration
         });
 
         /** gunakan script berikut jika ingin menambah data otomatis */
-        $categories = ['Doing', 'Kesehatan', 'Olahraga'];
+        $categories = ['Politik', 'Kesehatan', 'Olahraga'];
         for ($a = 1; $a <= 15; $a++)
             DB::table('tb_post')->insert([
                 'post_title' => 'Judul Artikel ' . $a,

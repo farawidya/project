@@ -13,7 +13,6 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\DeveloperController;
 use App\Http\Controllers\MarketingController;
 
-
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -144,6 +143,9 @@ Route::get('/nomor/show', function () {
         "title" => "Home"
     ]);
 });
+// Route::get('/', function () {
+//     return view('welcome');
+// });
 
 Route::get('/marketing', 'MarketingController@index')->name('/marketing');
 Route::post('/marketing', 'MarketingController@store')->name('store.marketing');
@@ -166,4 +168,5 @@ Route::resource('mom', MomController::class);
 
 Route::resource('marketing', MarketingController::class);
 
+Route::resource('devlop', DeveloperController::class);
 Route::resource('devlop', DeveloperController::class);

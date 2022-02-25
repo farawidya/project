@@ -27,10 +27,9 @@
                         <th>No.</th>
                         <th>Nama</th>
                         <th>Alamat</th>
-                        <th>No. Telp</th>
-                        <th>Gmail</th>
+                        <th>email</th>
+                        <th>No. Hp</th>
                         <th>Username</th>
-                        <th>Password</th>
                         <th>Action</th>
                     </tr>
                 </thead>
@@ -38,15 +37,14 @@
                 @foreach ($marketing as $marketing)
                     <tr>
                         <td>{{ $no++ }}</td>
-                        <td>{{ $marketing->Nama }}</td>
+                        <td>{{ $marketing->nama }}</td>
                         <td>{{ $marketing->alamat }}</td>
-                        <td>{{ $marketing->no_telp }}</td>
-                        <td>{{ $marketing->gmail }}</td>
+                        <td>{{ $marketing->email }}</td>
+                        <td>{{ $marketing->nohp }}</td>
                         <td>{{ $marketing->username }}</td>
-                        <td>{{ $marketing->password }}</td>
                         <td>
-                            <a class="btn btn-sm btn-info modal-title" id="exampleModalLabel"  data-bs-toggle="modal" data-bs-target="#show">Show</a>
-                            <a class="btn btn-sm btn-warning modal-title" id="exampleModalLabel"  data-bs-toggle="modal" data-bs-target="#edit">Edit</a>
+                            <a href="{{ url('marketing/'.$marketing->id) }}"class="btn btn-sm btn-info modal-title" id="exampleModalLabel"  data-bs-toggle="modal" data-bs-target="#show">Show</a>
+                            <a href="{{ url('marketing/edit'.$marketing->id) }}"class="btn btn-sm btn-warning modal-title" id="exampleModalLabel"  data-bs-toggle="modal" data-bs-target="#edit">Edit</a>
                             <form method="POST" action="{{ route('marketing.destroy', $marketing) }}" style="display: inline-block;">
                                 @csrf
                                 @method('DELETE')
@@ -68,21 +66,21 @@
         <div class="modal-body">
           <form action="{{ route('marketing.store') }}" method="POST" enctype="multipart/form-data">
                           @csrf
-                          <div class="form-group">
+                        <div class="form-group">
                             <label>Nama <span class="text-danger">*</span></label>
                             <input class="form-control" id="huruf" type="text" id="huruf" placeholder="Nama" name="Nama" value="{{ old('Nama') }}" />
                         </div>
-                          <div class="form-group">
+                        <div class="form-group">
                             <label>Alamat <span class="text-danger">*</span></label>
                             <textarea class="form-control" type="text" placeholder="Alamat" name="alamat" value="{{ old('alamat') }}" /></textarea>
                         </div>
                         <div class="form-group">
-                            <label>No. Telp <span class="text-danger">*</span></label>
-                            <input class="form-control" placeholder="No. Telp" minlength="11" maxlength="13" type="text" onkeypress="return isNumber(event)" name="no telp" value="{{ old('no_telp') }}" />
+                            <label>Email <span class="text-danger">*</span></label>
+                            <input class="form-control" type="email" placeholder="Email" name="email" value="{{ old('email') }}" />
                         </div>
                         <div class="form-group">
-                            <label>Gmail <span class="text-danger">*</span></label>
-                            <input class="form-control" type="email" placeholder="Email" name="gmail" value="{{ old('gmail') }}" />
+                            <label>No. Hp <span class="text-danger">*</span></label>
+                            <input class="form-control" placeholder="No. Hp" minlength="11" maxlength="13" type="number" onkeypress="return isNumber(event)" name="nohp" value="{{ old('nohp') }}" />
                         </div>
                         <div class="form-group">
                             <label>Username <span class="text-danger">*</span></label>
@@ -114,19 +112,19 @@
                     @csrf
                     <div class="form-group">
                         <label>Nama <span class="text-danger">*</span></label>
-                        <input class="form-control" type="text" id="bukanangka" placeholder="Nama" name="Nama" value="{{ old('Nama') }}" />
+                        <input class="form-control" type="text" id="bukanangka" placeholder="Nama" name="nama" value="{{ old('nama') }}" />
                     </div>
                     <div class="form-group">
-                            <label>Alamat <span class="text-danger">*</span></label>
-                            <textarea class="form-control" type="text" placeholder="Alamat" name="alamat" value="{{ old('alamat') }}" /></textarea>
-                        </div>
-                    <div class="form-group">
-                        <label>No. Telp <span class="text-danger">*</span></label>
-                        <input class="form-control" placeholder="No. Telp" minlength="11" maxlength="13" type="text" onkeypress="return isNumber(event)" name="no telp" value="{{ old('no_telp') }}" />
+                        <label>Alamat <span class="text-danger">*</span></label>
+                        <textarea class="form-control" type="text" placeholder="Alamat" name="alamat" value="{{ old('alamat') }}" /></textarea>
                     </div>
                     <div class="form-group">
-                        <label>Gmail <span class="text-danger">*</span></label>
-                        <input class="form-control" type="email" placeholder="Email" name="gmail" value="{{ old('gmail') }}" />
+                        <label>Email <span class="text-danger">*</span></label>
+                        <input class="form-control" type="email" placeholder="Email" name="email" value="{{ old('email') }}" />
+                    </div>
+                    <div class="form-group">
+                        <label>No. Hp <span class="text-danger">*</span></label>
+                        <input class="form-control" placeholder="No. Hp" minlength="11" maxlength="13" type="number" onkeypress="return isNumber(event)" name="nohp" value="{{ old('nohp') }}" />
                     </div>
                     <div class="form-group">
                         <label>Username <span class="text-danger">*</span></label>
@@ -163,15 +161,15 @@
             </div>
             <div class="form-group">
                 <label>Alamat <span class="text-danger">*</span></label>
-                <textarea class="form-control" type="text" placeholder="Alamat" name="alamat" value="{{ old('alamat') }}" / disabled readonly></textarea>
+                <textarea class="form-control" type="text" placeholder="Alamat" name="alamat" value="{{ old('alamat') }}" /></textarea>
             </div>
             <div class="form-group">
-                <label>No. Telp <span class="text-danger">*</span></label>
-                <input class="form-control" placeholder="No. Telp" minlength="11" maxlength="13" type="text" onkeypress="return isNumber(event)" name="no telp" value="{{ old('no_telp') }}" / disabled readonly>
+                <label>Email <span class="text-danger">*</span></label>
+                <input class="form-control" type="email" placeholder="Email" name="email" value="{{ old('email') }}" />
             </div>
             <div class="form-group">
-                <label>Gmail <span class="text-danger">*</span></label>
-                <input class="form-control" type="email" placeholder="Email" name="gmail" value="{{ old('gmail') }}" / disabled readonly>
+                <label>No. Hp <span class="text-danger">*</span></label>
+                <input class="form-control" placeholder="No. Hp" minlength="11" maxlength="13" type="number" onkeypress="return isNumber(event)" name="nohp" value="{{ old('nohp') }}" />
             </div>
             <div class="form-group">
                 <label>Username <span class="text-danger">*</span></label>

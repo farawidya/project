@@ -17,7 +17,8 @@
     <form class="form-inline">
     <div class="form-group mr-1">
      <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#tambah">
-    Tambah</button>
+        Tambah
+     </button>
    </div>
     </form>
     </div>

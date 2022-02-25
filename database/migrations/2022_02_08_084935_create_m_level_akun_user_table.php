@@ -16,11 +16,11 @@ class CreateMLevelAkunUserTable extends Migration
         Schema::create('m_level_akun_user', function (Blueprint $table) {
             $table->increments('id_level_akun_user');
             $table->tinyInteger('level');
-            $table->tinyInteger('status_aktif');
-            $table->integer('create_by');
-            $table->integer('update_by');
-            $table->integer('delete_by');
-            $table->datetime('delete_at')->timestamps();
+            $table->tinyInteger('status_aktif')->default(0);
+            $table->integer('create_by')->nullable();
+            $table->integer('update_by')->nullable();
+            $table->integer('delete_by')->nullable();
+            $table->datetime('delete_at')->timestamps()->nullable();
             $table->timestamps();
         });
     }

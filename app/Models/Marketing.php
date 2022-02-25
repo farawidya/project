@@ -9,16 +9,15 @@ class Marketing extends Model
 {
     use HasFactory;
     
-    protected $table = 'Marketings';
-    protected $primaryKey = 'marketing_id';
+    protected $table = 'm_user';
+    protected $primaryKey = 'id_user';
     
     protected $fillable = [
+        'id_akun',
         'Nama',
-        'no_telp',
-        'gmail',
         'alamat',
-        'username',
-        'password',
+        'email',
+        'nohp',
     ];
     
     function image()

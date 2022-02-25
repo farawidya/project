@@ -145,6 +145,9 @@ Route::get('/nomor/show', function () {
     ]);
 });
 
+Route::get('/marketing', 'MarketingController@index')->name('/marketing');
+Route::post('/marketing', 'MarketingController@store')->name('store.marketing');
+
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

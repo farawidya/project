@@ -19,11 +19,11 @@ class CreateTAkunUserTable extends Migration
             $table->foreign('id_level_akun_user')->references('id_level_akun_user')->on('m_level_akun_user');
             $table->string('username');
             $table->string('password');
-            $table->tinyInteger('status_aktif');
-            $table->integer('create_by');
-            $table->integer('update_by');
-            $table->integer('delete_by');
-            $table->datetime('delete_at')->timestamps();
+            $table->tinyInteger('status_aktif')->default(0);
+            $table->integer('create_by')->nullable();
+            $table->integer('update_by')->nullable();
+            $table->integer('delete_by')->nullable();
+            $table->datetime('delete_at')->timestamps()->nullable();
             $table->timestamps();
         });
     }

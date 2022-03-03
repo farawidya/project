@@ -15,6 +15,7 @@ class akun_user extends Model
     protected $fillable = [
         'Username',
         'password',
+        'level',
     ];
     protected $hidden = [
         'password',

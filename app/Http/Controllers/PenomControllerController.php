@@ -25,6 +25,8 @@ class PenomControllerController extends Controller
      */
     public function create()
     {
+        $category = kategori_penomoran::all();
+        return view('penom.create', compact('category'));
         //
     }
 

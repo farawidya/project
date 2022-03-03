@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\nomor;
 use Illuminate\Http\Request;
+use App\Models\kategori_penomoran;
 
 class NomorController extends Controller
 {
@@ -14,10 +15,12 @@ class NomorController extends Controller
      */
     public function index(Request $request)
     {
-        $data['title'] = 'Dokumen';
-        $data['categories'] = ['kategori1', 'kategori2', 'kategori3'];
+        $data['title'] = 'nomor';
         $data['q'] = $request->q;
-        $data['nomor'] = Nomor::where('dokumen', 'like', '%' . $request->q . '%')->get();
+        $data['nomor'] = Nomor::where('penomoran', 'like', '%' . $request->q . '%')
+                        ->join('m_kategori_penomoran', 'm_kategori_penomoran.id_kategori_penomoran', '=', 't_penomoran.id_kategori_penomoran')
+                        ->get();
+
         return view('nomor.index', $data);
     }
 
@@ -28,9 +31,9 @@ class NomorController extends Controller
      */
     public function create(Request $request)
     {
-         $data['title'] = 'Tambah';
-         $data['categories'] = ['kategori1', 'kategori2', 'kategori3'];
-        return view('nomor.create',$data);
+        $data['title'] = 'Tambah';
+        $data['categories'] = $m_kategori_penomoran->kategori;
+            return view('nomor.create',$data);
     }
 
     /**
@@ -47,12 +50,16 @@ class NomorController extends Controller
             'Kategori' => 'required',
         ]);
 
+        $m_kategori_penomoran = new kategori_penomoran();
+        $nomor->id_kategori_penomoran = $m_kategori_penomoran->id_kategori_penomoran;
+        $m_kategori_penomoran->kategori = $get->kategori();
+
         $nomor = new Nomor();
         $nomor->Dokumen = $request->Dokumen;
         $nomor->Penomoran = $request->Penomoran;
-        $nomor->Kategori = $request->Kategori;
+        $nomor->id_kategori_penomoran = $m_kategori_penomoran->id_kategori_penomoran;
         $nomor->save();
-         return redirect('nomor')->with('success', 'Tambah Berhasil');
+            return redirect('nomor')->with('success', 'Tambah Berhasil');
     }
 
     /**
@@ -76,7 +83,8 @@ class NomorController extends Controller
    {
         $data['title'] = 'Ubah';
         $data['list'] = $nomor;
-         $data['categories'] = ['kategori1', 'kategori2', 'kategori3'];
+        $data['categories'] = $nomor->m_kategori_penomoran->kategori;
+        // $data['categories'] = $nomor->kategori;
         // $data['categories'] = ['Laki-Laki', 'Perempuan'];
         return view('nomor.edit', $data);
     }

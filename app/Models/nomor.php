@@ -9,13 +9,11 @@ class nomor extends Model
 {
    use HasFactory;
 
-    protected $table = 'nomor';
-    protected $primaryKey = 'nomor_id';
+    protected $table = 't_penomoran';
+    protected $primaryKey = 'id_penomoran';
 
     protected $fillable = [
-        'dokumen ',
         'penomoran',
-        'kategori',
     ];
     // protected $guarded = [
     //     'id'

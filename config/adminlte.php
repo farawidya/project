@@ -235,35 +235,40 @@ return [
             'url'  => '/dashboard',
             'icon' => 'fas fa-tachometer-alt',
         ],
+        // [
+        //     'text' => 'Management Admin',
+        //     'url'  => '/admin',
+        //     'icon' => 'fas fa-users',
+        // ],
+        // [
+        //     'text' => 'Management Project Manager',
+        //     'url'  => '/projek',
+        //     'icon' => 'fas fa-tasks',
+        // ],
+        // [
+        //     'text' => 'Management Analis',
+        //     'url'  => '/analis',
+        //     'icon' => 'fas fa-user', 
+        // ],
+        // [
+        //     'text' => 'Management Desain Grafis',
+        //     'url'  => '/desain',
+        //     'icon' => 'fas fa-cogs',
+        // ],
+        // [
+        //     'text' => 'Management Developer',
+        //     'url'  => '/developer',
+        //     'icon' => 'fas fa-cogs',
+        // ],
         [
-            'text' => 'Management Admin',
-            'url'  => '/admin',
-            'icon' => 'fas fa-users',
-        ],
-        [
-            'text' => 'Management Project Manager',
-            'url'  => '/projek',
-            'icon' => 'fas fa-tasks',
-        ],
-        [
-            'text' => 'Management Analis',
-            'url'  => '/analis',
-            'icon' => 'fas fa-user', 
-        ],
-        [
-            'text' => 'Management Desain Grafis',
-            'url'  => '/desain',
-            'icon' => 'fas fa-cogs',
-        ],
-        [
-            'text' => 'Management Developer',
-            'url'  => '/developer',
-            'icon' => 'fas fa-cogs',
-        ],
-        [
-            'text' => 'Management Marketing',
+            'text' => 'Management User',
             'url'  => '/marketing',
             'icon' => 'fas fa-search-dollar',
+        ],
+        [
+            'text' => 'Management Client',
+            'url'  => '/client',
+            'icon' => 'fas fa-cogs',
         ],
         [
             'text' => 'Management Proyek',
@@ -271,9 +276,14 @@ return [
             'icon' => 'fas fa-tasks',
         ],
         [
-            'text' => 'Management MOM',
-            'url'  => '/mom',
-            'icon' => 'fas fa-handshake',
+            'text' => 'Management Task',
+            'url'  => '/task',
+            'icon' => 'fas fa-cogs',
+        ],
+        [
+            'text' => 'Dokumen Project',
+            'url'  => '/dokumen',
+            'icon' => 'fas fa-cogs',
         ],
         [
             'text' => 'Management Penomoran Dokumen',
@@ -281,20 +291,18 @@ return [
             'icon' => 'fas fa-cogs',
         ],
         [
-            'text' => 'Dokumen Project',
-            'url'  => '/dokproject',
-            'icon' => 'fas fa-cogs',
-        ],
-        [
             'text' => 'Management Jadwal Meeting',
             'url'  => '/meeting',
             'icon' => 'fas fa-cogs',
         ],
+        
         [
-            'text' => 'Management Client',
-            'url'  => '/client',
-            'icon' => 'fas fa-cogs',
+            'text' => 'Management MOM',
+            'url'  => '/mom',
+            'icon' => 'fas fa-handshake',
         ],
+        
+        
     ],
 
     /*

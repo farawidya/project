@@ -1,9 +1,9 @@
 @extends('adminlte::page')
 
-@section('title', 'Management Marketing')
+@section('title', 'Management User')
 
 @section('content_header')
-    <h1>Management Marketing</h1>
+    <h1>Management User</h1>
 @stop
 
 @section('content')
@@ -12,13 +12,13 @@
     @endif
     <div class="card card-default">
         <div class="card-header">
-        <form class="form-inline">
-        <div class="form-group mr-1">
-          <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#tambah">
-            Tambah
-          </button>
-        </div>
-        </form>
+            <form class="form-inline">
+                <div class="form-group mr-1">
+                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#tambah">
+                    Tambah
+                </button>
+                </div>
+            </form>
         </div>
         <div class="card-body table-responsive">
             <table class="table table-bordered table-striped table-hover mb-0" id="example2">
@@ -30,6 +30,7 @@
                         <th>email</th>
                         <th>No. Hp</th>
                         <th>Username</th>
+                        <th>level</th>
                         <th>Action</th>
                     </tr>
                 </thead>
@@ -42,6 +43,7 @@
                         <td>{{ $marketing->email }}</td>
                         <td>{{ $marketing->nohp }}</td>
                         <td>{{ $marketing->username }}</td>
+                        <td>{{ $marketing->level }}</td>
                         <td>
                             <a href="{{ url('marketing/'.$marketing->id) }}"class="btn btn-sm btn-info modal-title" id="exampleModalLabel"  data-bs-toggle="modal" data-bs-target="#show">Show</a>
                             <a href="{{ url('marketing/edit'.$marketing->id) }}"class="btn btn-sm btn-warning modal-title" id="exampleModalLabel"  data-bs-toggle="modal" data-bs-target="#edit">Edit</a>
@@ -57,138 +59,166 @@
         </div>
     </div>
         <!-- Modal Tambah -->
-<div class="modal fade" id="tambah" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Tambah</h5>
-        </div>
-        <div class="modal-body">
-          <form action="{{ route('marketing.store') }}" method="POST" enctype="multipart/form-data">
-                          @csrf
-                        <div class="form-group">
-                            <label>Nama <span class="text-danger">*</span></label>
-                            <input class="form-control" id="huruf" type="text" id="huruf" placeholder="Nama" name="Nama" value="{{ old('Nama') }}" />
-                        </div>
-                        <div class="form-group">
-                            <label>Alamat <span class="text-danger">*</span></label>
-                            <textarea class="form-control" type="text" placeholder="Alamat" name="alamat" value="{{ old('alamat') }}" /></textarea>
-                        </div>
-                        <div class="form-group">
-                            <label>Email <span class="text-danger">*</span></label>
-                            <input class="form-control" type="email" placeholder="Email" name="email" value="{{ old('email') }}" />
-                        </div>
-                        <div class="form-group">
-                            <label>No. Hp <span class="text-danger">*</span></label>
-                            <input class="form-control" placeholder="No. Hp" minlength="11" maxlength="13" type="number" onkeypress="return isNumber(event)" name="nohp" value="{{ old('nohp') }}" />
-                        </div>
-                        <div class="form-group">
-                            <label>Username <span class="text-danger">*</span></label>
-                            <input class="form-control" type="name" placeholder="Username" name="username" value="{{ old('username') }}" />
-                        </div>
-                        <div class="form-group">
-                            <label>Password <span class="text-danger">*</span></label>
-                            <input class="form-control" type="password" placeholder="Password" name="password" value="{{ old('password') }}" />
-                        </div>
-                         
-                          <div class="form-group">
-                              <button class="btn btn-primary">Simpan</button>
-                              <a class="btn btn-danger" data-bs-dismiss="modal">Kembali</a>
-                          </div>
-                      </form>
-        </div>
-      </div>
-    </div>
-  </div>
-  <!-- Modal edit -->
-<div class="modal fade" id="edit" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Edit</h5>
+        <div class="modal fade" id="tambah" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Tambah</h5>
+                    </div>
+                    <div class="modal-body">
+                        <form action="{{ route('marketing.store') }}" method="POST" enctype="multipart/form-data">
+                            @csrf
+                            <div class="form-group">
+                                <label>Nama <span class="text-danger">*</span></label>
+                                <input class="form-control" id="huruf" type="text" id="huruf" placeholder="Nama" name="Nama" value="{{ old('nama') }}" />
+                            </div>
+                            <div class="form-group">
+                                <label>Alamat <span class="text-danger">*</span></label>
+                                <textarea class="form-control" type="text" placeholder="Alamat" name="alamat" value="{{ old('alamat') }}" /></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label>Email <span class="text-danger">*</span></label>
+                                <input class="form-control" type="email" placeholder="Email" name="email" value="{{ old('email') }}" />
+                            </div>
+                            <div class="form-group">
+                                <label>No. Hp <span class="text-danger">*</span></label>
+                                <input class="form-control" placeholder="No. Hp" minlength="11" maxlength="13" type="number" onkeypress="return isNumber(event)" name="nohp" value="{{ old('nohp') }}" />
+                            </div>
+                            <div class="form-group">
+                                <label>Username <span class="text-danger">*</span></label>
+                                <input class="form-control" type="name" placeholder="Username" name="username" value="{{ old('username') }}" />
+                            </div>
+                            <div class="form-group">
+                                <label>Password <span class="text-danger">*</span></label>
+                                <input class="form-control" type="password" placeholder="Password" name="password" value="{{ old('password') }}" />
+                            </div>
+                            <div class="form-group row" id="foto_div_input">
+                                <label class="col-sm-3 control-label" for="demo-hor-inputemail">Level</label>
+                                <div class="col-sm-9">
+                                    <select class="form-control" name="level" id="level">
+                                        <option value="0">-- pilih level --</option>
+                                        <option value="admin">Admin</option>
+                                        <option value="marketing">Marketing</option>
+                                        <option value="analis">Analis</option>
+                                        <option value="desainer">Desainer</option>
+                                        <option value="developer">Developer</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button class="btn btn-primary">Simpan</button>
+                                <a class="btn btn-danger" data-bs-dismiss="modal">Kembali</a>
+                            </div>
+                        </form>
+                    </div>
+                </div>
             </div>
-            <div class="modal-body">
-                <form action="{{ route('marketing.store') }}" method="POST" enctype="multipart/form-data">
-                    @csrf
-                    <div class="form-group">
-                        <label>Nama <span class="text-danger">*</span></label>
-                        <input class="form-control" type="text" id="bukanangka" placeholder="Nama" name="nama" value="{{ old('nama') }}" />
+        </div>
+        <!-- Modal edit -->
+        <div class="modal fade" id="edit" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Edit</h5>
                     </div>
-                    <div class="form-group">
-                        <label>Alamat <span class="text-danger">*</span></label>
-                        <textarea class="form-control" type="text" placeholder="Alamat" name="alamat" value="{{ old('alamat') }}" /></textarea>
-                    </div>
-                    <div class="form-group">
-                        <label>Email <span class="text-danger">*</span></label>
-                        <input class="form-control" type="email" placeholder="Email" name="email" value="{{ old('email') }}" />
-                    </div>
-                    <div class="form-group">
-                        <label>No. Hp <span class="text-danger">*</span></label>
-                        <input class="form-control" placeholder="No. Hp" minlength="11" maxlength="13" type="number" onkeypress="return isNumber(event)" name="nohp" value="{{ old('nohp') }}" />
-                    </div>
-                    <div class="form-group">
-                        <label>Username <span class="text-danger">*</span></label>
-                        <input class="form-control" type="username" placeholder="Username" name="username" value="{{ old('username') }}" />
-                    </div>
-                    <div class="form-group">
-                        <label>Password <span class="text-danger">*</span></label>
-                        <input class="form-control" type="password" placeholder="Password" name="password" value="{{ old('password') }}" />
-                    </div>
-                    <div class="form-group">
+                    <div class="modal-body">
+                        <form action="{{ url('/marketing'.$marketing->id) }}" method="POST" enctype="multipart/form-data">
+                            @method('patch')
+                            @csrf
+                            <div class="form-group">
+                                <label>Nama <span class="text-danger">*</span></label>
+                                <input class="form-control" type="text" id="bukanangka" placeholder="Nama" name="Nama" value="{{ $marketing->nama }}" />
+                            </div>
+                            <div class="form-group">
+                                <label>Alamat <span class="text-danger">*</span></label>
+                                <textarea class="form-control" type="text" placeholder="Alamat" name="alamat" value="{{ $marketing->alamat }}"></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label>Email <span class="text-danger">*</span></label>
+                                <input class="form-control" type="email" placeholder="Email" name="email" value="{{ $marketing->email }}" />
+                            </div>
+                            <div class="form-group">
+                                <label>No. Hp <span class="text-danger">*</span></label>
+                                <input class="form-control" placeholder="No. Hp" minlength="11" maxlength="13" type="number" onkeypress="return isNumber(event)" name="nohp" value="{{ $marketing->nohp }}" />
+                            </div>
+                            <div class="form-group">
+                                <label>Username <span class="text-danger">*</span></label>
+                                <input class="form-control" type="username" placeholder="Username" name="username" value="{{ $marketing->nama }}" />
+                            </div>
+                            <div class="form-group row" id="foto_div_input">
+                                <label class="col-sm-3 control-label" for="demo-hor-inputemail">level</label>
+                                <div class="col-sm-9">
+                                    <select class="form-control" name="level" id="level" value="{{ $marketing->level }}">
+                                        <option value="0">-- pilih level --</option>
+                                        <option value="admin">Admin</option>
+                                        <option value="marketing">Marketing</option>
+                                        <option value="analis">Analis</option>
+                                        <option value="desainer">Desainer</option>
+                                        <option value="developer">Developer</option>
+                                    </select>
+                                </div>
+                            </div>
+                    <div class="modal-footer">
                         <button class="btn btn-primary">Simpan</button>
                         <a class="btn btn-danger" data-bs-dismiss="modal">Kembali</a>
                     </div>
-                </form>
+                        </form>
+                    </div>
+                </div>
             </div>
         </div>
-    </div>
-</div>
-</form>
-</div>
-<!-- mmodal show -->
-<div class="modal fade" id="show" tabindex="-1" aria-labelledby="showLabel" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="showLabel">Detail</h5>
-        </div>
-        <div class="modal-body">
-          <form action="{{ route('marketing.store') }}" method="POST" enctype="multipart/form-data">
-              @csrf
-              <div class="form-group">
-                <label>Nama <span class="text-danger">*</span></label>
-                <input class="form-control" type="text" id="bukanangka" placeholder="Nama" name="Nama" value="{{ old('Nama') }}" / disabled readonly>
-            </div>
-            <div class="form-group">
-                <label>Alamat <span class="text-danger">*</span></label>
-                <textarea class="form-control" type="text" placeholder="Alamat" name="alamat" value="{{ old('alamat') }}" /></textarea>
-            </div>
-            <div class="form-group">
-                <label>Email <span class="text-danger">*</span></label>
-                <input class="form-control" type="email" placeholder="Email" name="email" value="{{ old('email') }}" />
-            </div>
-            <div class="form-group">
-                <label>No. Hp <span class="text-danger">*</span></label>
-                <input class="form-control" placeholder="No. Hp" minlength="11" maxlength="13" type="number" onkeypress="return isNumber(event)" name="nohp" value="{{ old('nohp') }}" />
-            </div>
-            <div class="form-group">
-                <label>Username <span class="text-danger">*</span></label>
-                <input class="form-control" type="username" placeholder="Username" name="username" value="{{ old('username') }}" / disabled readonly>
-            </div>
-            <div class="form-group">
-                <label>Password <span class="text-danger">*</span></label>
-                <input class="form-control" type="password" placeholder="Password" name="password" value="{{ old('password') }}" / disabled readonly>
-            </div>
 
-          </form>
+        <!-- mmodal show -->
+        <div class="modal fade" id="show" tabindex="-1" aria-labelledby="showLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="showLabel">Detail</h5>
+                    </div>
+                    <div class="modal-body">
+                        <form action="{{ url('/marketing'.$marketing->id) }}" method="POST" enctype="multipart/form-data">
+                            @csrf
+                            <div class="form-group">
+                                <label>Nama <span class="text-danger">*</span></label>
+                                <input class="form-control" type="text" id="bukanangka" placeholder="Nama" name="nama" value="{{ $marketing->nama }}" / disabled readonly>
+                            </div>
+                            <div class="form-group">
+                                <label>Alamat <span class="text-danger">*</span></label>
+                                <textarea class="form-control" type="text" placeholder="Alamat" name="alamat" value="{{ $marketing->alamat }}" disabled readonly></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label>Email <span class="text-danger">*</span></label>
+                                <input class="form-control" type="email" placeholder="Email" name="email" value="{{ $marketing->email }}" / disabled readonly>
+                            </div>
+                            <div class="form-group">
+                                <label>No. Hp <span class="text-danger">*</span></label>
+                                <input class="form-control" placeholder="No. Hp" minlength="11" maxlength="13" type="number" onkeypress="return isNumber(event)" name="nohp" value="{{ $marketing->nohp }}" / disabled readonly>
+                            </div>
+                            <div class="form-group">
+                                <label>Username <span class="text-danger">*</span></label>
+                                <input class="form-control" type="username" placeholder="Username" name="username" value="{{ $marketing->nama }}" / disabled readonly>
+                            </div>
+                            <div class="form-group row" id="foto_div_input">
+                                <label class="col-sm-3 control-label" for="demo-hor-inputemail">level</label>
+                                <div class="col-sm-9">
+                                    <select class="form-control" name="level" id="level" value="{{ $marketing->level }}" / disabled readonly>
+                                        {{-- <option value="0">-- pilih level --</option>
+                                        <option value="admin">Admin</option>
+                                        <option value="marketing">Marketing</option>
+                                        <option value="analis">Analis</option>
+                                        <option value="desainer">Desainer</option>
+                                        <option value="developer">Developer</option> --}}
+                                    </select>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-info" data-bs-dismiss="modal">Kembali</button>
+                    </div>
+                </div>
+            </div>
         </div>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-info" data-bs-dismiss="modal">Close</button>
-        </div>
-      </div>
-    </div>
-  </div>
         
 @endsection
 

@@ -25,9 +25,9 @@
                 <thead>
                     <tr>
                         <th>No</th>
-                        <th>Dokumen</th>
-                        <th>Penomoran</th>
                         <th>Kategori</th>
+                        <th>Penomoran</th>
+                        <th>Dokumen</th>
                         <th>Action</th>
                     </tr>
                 </thead>
@@ -35,9 +35,9 @@
                 @foreach ($nomor as $nomor)
                 <tr>
                     <td>{{ $no++ }}</td>
-                    <td>{{ $nomor->dokumen }}</td>
+                    <td>{{ $nomor->m_kategori_penomoran->kategori }}</td>
                     <td>{{ $nomor->penomoran }}</td>
-                    <td>{{ $nomor->kategori }}</td>
+                    <td>{{ $nomor->dokumen }}</td>
                     <td>
                         <form method="POST" action="{{ route('nomor.destroy', $nomor) }}" style="display: inline-block;">
                                  <button type="button" class="btn btn-info btn-xs" data-bs-toggle="modal" data-bs-target="#show">
@@ -57,133 +57,204 @@
             </table>
         </div>
     </div>
-
-   <!-- Modal -->
-    <div class="modal fade" id="tambah" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Tambah Penomoran</h5>
-                </div>
-                <div class="modal-body">
-                    <form action="{{ route('nomor.store') }}" method="POST" enctype="multipart/form-data">
+                <!-- Modal tambah-->
+                <div class="modal fade" id="tambah" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-lg">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">Tambah Penomoran</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <form action="{{ route('nomor.store') }}" method="POST" enctype="multipart/form-data">
                                     @csrf
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <label for="exampleInputEmail1" class="col-lg-1">No : </label>
+                                            <input class="btn btn-primary" type="button" value="Ol">
+                                            <label class="mx-2 my-auto">/</label>
+                                            <input class="btn btn-primary" type="button" value="V">
+                                            <label class="mx-2 my-auto">/</label>
+                                            <input class="btn btn-primary" type="button" value="AC">
+                                            <label class="mx-2 my-auto">/</label>
+                                            <input class="btn btn-primary" type="button" value="65">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="kategori-option">Kategori</label>
+                                        <select class="form-control" id="kategori-option" name="id_kategori_penomoran">
+                                            @foreach ($nomor as $nomor)
+                                                <option value="{{ $m_kategori_penomoran->id_kategori_penomoran }}">{{ $m_kategori_penomoran->kategori }}</option>
+                                                {{-- @if ($category == old('Kategori'))
+                                                    <option value="{{ $category }}" selected>{{ $category }}</option>
+                                                @else
+                                                    <option value="{{ $category }}">{{ $category }}</option>
+                                                @endif --}}
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                    {{-- <div class="form-group">
+                                        <label>Kategori <span class="text-danger">*</span></label>
+                                        <select class="form-control" name="Kategori" />
+                                            @foreach ($categories as $category)
+                                                @if ($category == old('Kategori'))
+                                                    <option value="{{ $category }}" selected>{{ $category }}</option>
+                                                @else
+                                                <option value="{{ $category }}">{{ $category }}</option>
+                                                @endif
+                                            @endforeach
+                                        </select>
+                                    </div> --}}
+                                    <div class="form-group">
+                                        <label>Judul Dokumen <span class="text-danger">*</span></label>
+                                        <input class="form-control" type="text" name="judul_dokumen" value="{{ old('Penomoran') }}" />
+                                    </div>
                                     <div class="form-group">
                                         <label for="formFile" class="form-label">Dokumen</label>
                                         <input class="form-control" type="file" id="formFile">
                                     </div>
-
-                            <div class="form-group">
-                                        <label>Penomoran <span class="text-danger">*</span></label>
-                                        <input class="form-control" type="text" name="Penomoran" value="{{ old('Penomoran') }}" />
-                                    </div>    
-                                    <div class="form-group">
-                                        <label>Kategori <span class="text-danger">*</span></label>
-                                        <select class="form-control" name="Kategori" />
-                                        @foreach ($categories as $category)
-                                        @if ($category == old('Kategori'))
-                                        <option value="{{ $category }}" selected>{{ $category }}</option>
-                                        @else
-                                        <option value="{{ $category }}">{{ $category }}</option>
-                                        @endif
-                                        @endforeach
-                                        </select>
-                                    </div>
-
-                                    <div class="form-group">
-                                        <button class="btn btn-primary">Simpan</button>
-                                        <a class="btn btn-danger" href="/nomor">Kembali</a>
-                                    </div>
                                 </form>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Kembali</button>
+                                <button type="button" class="btn btn-primary">Simpan</button>
                             </div>
                         </div>
                     </div>
-                    </div>
-
-        <!-- Modal -->
-    <div class="modal fade" id="edit" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Edit Penomoran</h5>
                 </div>
-                <div class="modal-body">
-                    <form action="{{ route('nomor.store') }}" method="POST" enctype="multipart/form-data">
-                                    @csrf
+
+                <!-- Modal edit-->
+                <div class="modal fade" id="edit" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-lg">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">Edit Penomoran</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <form action="{{ route('nomor.store') }}" method="POST" enctype="multipart/form-data">
+                                    @csrf    
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <label for="exampleInputEmail1" class="col-lg-1">No : </label>
+                                            <input class="btn btn-primary" type="button" value="Ol">
+                                            <label class="mx-2 my-auto">/</label>
+                                            <input class="btn btn-primary" type="button" value="V">
+                                            <label class="mx-2 my-auto">/</label>
+                                            <input class="btn btn-primary" type="button" value="AC">
+                                            <label class="mx-2 my-auto">/</label>
+                                            <input class="btn btn-primary" type="button" value="65">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="kategori-option">Kategori</label>
+                                        <select class="form-control" id="kategori-option" name="id_kategori_penomoran">
+                                            @foreach ($nomor as $nomor)
+                                                <option value="{{ $nomor->id_kategori_penomoran }}">{{ $kategori_penomoran->kategori }}</option>
+                                                {{-- @if ($category == old('Kategori'))
+                                                    <option value="{{ $category }}" selected>{{ $category }}</option>
+                                                @else
+                                                    <option value="{{ $category }}">{{ $category }}</option>
+                                                @endif --}}
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                    {{-- <div class="form-group">
+                                        <label>Kategori <span class="text-danger">*</span></label>
+                                        <select class="form-control" name="Kategori" />
+                                            @foreach ($categories as $category)
+                                                @if ($category == old('Kategori'))
+                                                    <option value="{{ $category }}" selected>{{ $category }}</option>
+                                                @else
+                                                <option value="{{ $category }}">{{ $category }}</option>
+                                                @endif
+                                            @endforeach
+                                        </select>
+                                    </div> --}}
+                                    <div class="form-group">
+                                        <label>Judul Dokumen <span class="text-danger">*</span></label>
+                                        <input class="form-control" type="text" name="judul_dokumen" value="{{ old('Penomoran') }}" />
+                                    </div>
                                     <div class="form-group">
                                         <label for="formFile" class="form-label">Dokumen</label>
                                         <input class="form-control" type="file" id="formFile">
                                     </div>
-                                     <div class="form-group">
-                                        <label>Penomoran <span class="text-danger">*</span></label>
-                                        <input class="form-control" type="text" name="Penomoran" value="{{ old('Penomoran') }}" />
-                                    </div>    
-                                    <div class="form-group">
-                                        <label>Kategori <span class="text-danger">*</span></label>
-                                        <select class="form-control" name="Kategori" />
-                                        @foreach ($categories as $category)
-                                        @if ($category == old('Kategori'))
-                                        <option value="{{ $category }}" selected>{{ $category }}</option>
-                                        @else
-                                        <option value="{{ $category }}">{{ $category }}</option>
-                                        @endif
-                                        @endforeach
-                                        </select>
-                                    </div>
-
-                                    <div class="form-group">
-                                        <button class="btn btn-primary">Simpan</button>
-                                        <a class="btn btn-danger" href="/nomor">Kembali</a>
-                                    </div>
                                 </form>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Kembali</button>
+                                <button type="button" class="btn btn-primary">Simpan</button>
                             </div>
                         </div>
                     </div>
-                    </div>
-
-   <!-- Modal -->
-    <div class="modal fade" id="show" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Detail Penomoran</h5>
                 </div>
-                <div class="modal-body">
-                    <form action="{{ route('nomor.store') }}" method="POST" enctype="multipart/form-data">
+
+        <!-- Modal show-->
+        <div class="modal fade" id="show" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Detail Penomoran</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form action="{{ route('nomor.store') }}" method="POST" enctype="multipart/form-data">
                              @csrf
                                 <div class="modal-body">
-                                <div class="form-group">
-                                <label for="formFile" class="form-label">Dokumen</label>
-                                <input class="form-control" type="file" id="formFile"  value=
-                                "{{ old('dokumen') }}" disabled readonly>
-                                </div>
-                                <div class="form-group">
-                                    <label for="exampleInputKategori">Penomoran</label>
-                                    <input type="name" class="form-control"
-                                        id="exampleInputPenomoran" placeholder="Penomoran" name="Penomoran"
-                                        value="{{ old('penomoran') }}" disabled readonly>
-                                </div>
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <label for="exampleInputEmail1" class="col-lg-1">No : </label>
+                                            <input class="btn btn-primary" type="button" value="Ol">
+                                            <label class="mx-2 my-auto">/</label>
+                                            <input class="btn btn-primary" type="button" value="V">
+                                            <label class="mx-2 my-auto">/</label>
+                                            <input class="btn btn-primary" type="button" value="AC">
+                                            <label class="mx-2 my-auto">/</label>
+                                            <input class="btn btn-primary" type="button" value="65">
+                                        </div>
+                                    </div>
                                     <div class="form-group">
-                                <label>Kategori <span class="text-danger">*</span></label>
-                                <select class="form-control" name="Kategori" disabled readonly>
-                                @foreach ($categories as $category)
-                                @if ($category == old('Kategori'))
-                                <option value="{{ $category }}" selected>{{ $category }}</option>
-                                @else
-                                <option value="{{ $category }}">{{ $category }}</option>
-                                @endif
-                                @endforeach
-                                </select>
+                                        <label for="kategori-option">Kategori</label>
+                                        <select class="form-control" id="kategori-option" name="id_kategori_penomoran">
+                                            @foreach ($nomor as $nomor)
+                                                <option value="{{ $nomor->id_kategori_penomoran }}">{{ $kategori_penomoran->kategori }}</option>
+                                                {{-- @if ($category == old('Kategori'))
+                                                    <option value="{{ $category }}" selected>{{ $category }}</option>
+                                                @else
+                                                    <option value="{{ $category }}">{{ $category }}</option>
+                                                @endif --}}
+                                            @endforeach
+                                        </select>
                                     </div>
-                                <div class="modal-footer">
-                            <button type= "button" class="btn btn-info" data-bs-dismiss="modal">Close</button>
+                                    <div class="form-group">
+                                        <label >judul Dokumen</label>
+                                        <input type="text" class="form-control"
+                                            id="exampleInputPenomoran" placeholder="Judul Dokumen" name="judul_dokumen"
+                                            value="{{ old('penomoran') }}" disabled readonly>
                                     </div>
-                                </form>
-                            </div>
-                        </div>
+                                    <div class="form-group">
+                                        <label for="formFile" class="form-label">Dokumen</label>
+                                        <input class="form-control" type="file" id="formFile" 
+                                            value="{{ old('dokumen') }}" disabled readonly>
+                                    </div>
+                                </div>
+                        </form>
                     </div>
-                    </div>          
-            @endsection
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Kembali</button>
+                        <button type="button" class="btn btn-primary">Simpan</button>
+                    </div>        
+                </div>
+            </div>
+        </div>          
+@endsection
+
 @section('css')
 <link rel="stylesheet" href="/css/admin_custom.css">
 @stop

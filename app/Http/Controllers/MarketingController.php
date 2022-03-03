@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Models\Marketing;
 use App\Models\akun_user;
-use App\Models\level_akun_user;
 use Illuminate\Http\Request;
 
 class MarketingController extends Controller
@@ -44,6 +43,7 @@ class MarketingController extends Controller
      */
     public function store(Request $request)
     {
+        $id = $request->id; 
         $request->validate([
             'Nama' => 'required',
             'alamat' => 'required',
@@ -51,16 +51,14 @@ class MarketingController extends Controller
             'nohp' => 'required',
             'username' => 'required',
             'password' => 'required',
+            'level' => 'required',
         ]);
         
-        $level_akun_user = new level_akun_user;
-        $level_akun_user->level = 1;
-        $level_akun_user->save();
 
         $akun_user = new akun_user;
-        $akun_user->id_level_akun_user = $level_akun_user->id_level_akun_user;
         $akun_user->username = $request->username;
         $akun_user->password = $request->password;
+        $akun_user->level = $request->level;
         $akun_user->save();
 
         $marketing = new Marketing();
@@ -90,6 +88,7 @@ class MarketingController extends Controller
      */
     public function show(Marketing $marketing)
     {
+        $marketing = Marketing::find($id);
         $data['title'] = 'Detail';
         $data['Nama'] = ['Nama'];
         $data['alamat'] = ['alamat'];
@@ -97,6 +96,7 @@ class MarketingController extends Controller
         $data['nohp'] = ['nohp'];
         $data['username'] = ['username'];
         $data['password'] = ['password'];
+        $data['level'] = ['level'];
         $data['marketing'] = $marketing;
         return view('marketing.show', $data);
     }
@@ -107,7 +107,7 @@ class MarketingController extends Controller
      * @param  \App\Models\Post  $post
      * @return \Illuminate\Http\Response
      */
-    public function edit(Marketing $marketing)
+    public function edit($id)
     {
         $data['title'] = 'Ubah';
         $data['marketing'] = $marketing;
@@ -121,23 +121,29 @@ class MarketingController extends Controller
      * @param  \App\Models\Post  $post
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Marketing $marketing)
+    public function update(Request $request, $id)
     {
         $request->validate([
             'Nama' => 'required',
             'alamat' => 'required',
-            'no_telp' => 'required',
-            'gmail' => 'required',
+            'email' => 'required',
+            'nohp' => 'required',
             'username' => 'required',
             'password' => 'required',
+            'level' => 'required',
         ]);
 
+        $marketing = Marketing::where('id_user',$id_user)->first();
+
+        $marketing = Marketing::find($id);
+        $marketing->id_akun = $akun_user->id_akun;
         $marketing->Nama = $request->Nama;
-        $marketing->no_telp = $request->no_telp;
-        $marketing->gmail = $request->gmail;
         $marketing->alamat = $request->alamat;
-        $marketing->username = $request->username;
-        $marketing->password = $request->password;
+        $marketing->email = $request->email;
+        $marketing->nohp = $request->nohp;
+        $akun_user->username = $request->username;
+        $akun_user->password = $request->password;
+        $akun_user->level = $request->level;
         // if ($request->hasFile('image')) {
         //     $post->delete_image();
         //     $image = $request->file('image');
@@ -146,7 +152,9 @@ class MarketingController extends Controller
         //     $post->image = $name;
         // }
         $marketing->save();
-        return redirect('marketing')->with('success', 'Ubah Berhasil');
+        $akun_user->save();
+        return redirect()->route('marketing.index')
+            ->with('success_message', 'Berhasil mengubah marketing');
     }
 
     /**
@@ -157,10 +165,17 @@ class MarketingController extends Controller
      */
     public function destroy(Marketing $marketing)
     {
-        // $marketing->delete_image();
+        // $marketing = Marketing::find($id);
+
+        // if ($id == $request->marketing()->id) return redirect()->route('users.index')
+        //     ->with('error_message', 'Anda tidak dapat menghapus diri sendiri.');
+
+        // if ($marketing) $marketing->delete();
+
+        // return redirect()->route('users.index')
+        //     ->with('success_message', 'Berhasil menghapus user');
+
         $marketing->delete();
-        $akun_user->delete();
-        $level_akun_user->delete();
         return redirect('marketing')->with('success', 'Hapus Berhasil');
     }
 }

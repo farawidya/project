@@ -7,11 +7,13 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\NomorController;
+use App\Http\Controllers\ClientController;
 use App\Http\Controllers\ProjekController;
 use App\Http\Controllers\ProyekController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\DeveloperController;
 use App\Http\Controllers\MarketingController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -38,6 +40,7 @@ Route::get('/dashboard', function () {
 
 Route::get('/admin', function () {
     return view('admin', [
+        "title" => "management Admin"
     ]);
 });
 
@@ -127,8 +130,13 @@ Route::get('/pendokumen', function () {
     ]);
 });
 
-Route::get('/dokproject', function () {
-    return view('dokproject', [
+Route::get('/dokumen', function () {
+    return view('dokumen', [
+    ]);
+});
+
+Route::get('/dokumen/view', function () {
+    return view('dokumen.view', [
     ]);
 });
 
@@ -138,27 +146,42 @@ Route::get('/meeting', function () {
     ]);
 });
 
+Route::get('/client', function () {
+    return view('client.index', [
+        "title" => "client"
+    ]);
+});
+
 Route::get('/nomor/show', function () {
     return view('nomor/show', [
         "title" => "Home"
     ]);
 });
-// Route::get('/', function () {
-//     return view('welcome');
-// });
 
 Route::get('/marketing', 'MarketingController@index')->name('/marketing');
-Route::post('/marketing', 'MarketingController@store')->name('store.marketing');
+Route::post('/marketing', 'MarketingController@store')->name('store.marketing');    
+Route::patch('/marketing/{id}', 'MarketingController@update')->name('update.marketing');
+Route::get('/client', [App\Http\Controllers\ClientController::class, 'index'])->name('client');
+// Route::post('/client', 'ClientController@store')->name('store.client'); 
+Route::post('/client', [App\Http\Controllers\ClientController::class, 'index'])->name('client.store'); 
+    
+Route::patch('/client/{id}', 'ClientController@update')->name('update.client');
+
+
+Route::get('/developer', [App\Http\Controllers\DeveloperController::class, 'index'])->name('developer');
+Route::get('/dokumen', [App\Http\Controllers\DokumenController::class, 'index'])->name('dokumen');
+Route::get('/dokumen', [App\Http\Controllers\DokumenController::class, 'index'])->name('dokumen.store');
+Route::post('/getStatusProject',[DokumenController::class,'getStatusProject'])->name('getStatusProject');
 
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/dashboard', [App\Http\Controllers\DashboardController::class, 'index'])->name('dashboard');
 
 Route::resource('users', \App\Http\Controllers\UserController::class)
     ->middleware('auth');
 
 Route::resource('post', PostController::class);
-
 Route::resource('nomor', NomorController::class);
 Route::resource('projek', ProjekController::class);
 Route::resource('manpen', DokumenController::class);
@@ -168,5 +191,4 @@ Route::resource('mom', MomController::class);
 
 Route::resource('marketing', MarketingController::class);
 
-Route::resource('devlop', DeveloperController::class);
 Route::resource('devlop', DeveloperController::class);

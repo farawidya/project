@@ -15,10 +15,9 @@ class CreateTAkunUserTable extends Migration
     {
         Schema::create('t_akun_user', function (Blueprint $table) {
             $table->increments('id_akun');
-            $table->integer('id_level_akun_user')->unsigned();
-            $table->foreign('id_level_akun_user')->references('id_level_akun_user')->on('m_level_akun_user');
             $table->string('username');
             $table->string('password');
+            $table->string('level');
             $table->tinyInteger('status_aktif')->default(0);
             $table->integer('create_by')->nullable();
             $table->integer('update_by')->nullable();

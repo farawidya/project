@@ -13,18 +13,35 @@ class CreateTDokumenPenomoranTable extends Migration
      */
     public function up()
     {
-        Schema::create('t_dokumen_penomoran', function (Blueprint $table) {
+        Schema::create('m_dokumen', function (Blueprint $table) {
             $table->increments('id_dokumen');
-            $table->integer('id_penomoran')->unsigned();
-            $table->foreign('id_penomoran')->references('id_penomoran')->on('t_penomoran');
-            $table->integer('id_log_project')->unsigned();
-            $table->foreign('id_log_project')->references('id_log_project')->on('t_log_project');
-            $table->integer('dokumen');
-            $table->tinyInteger('status_aktif');
-            $table->integer('create_by');
-            $table->integer('update_by');
-            $table->integer('delete_by');
-            $table->datetime('delete_at')->timestamps();
+            // $table->foreignId('id_dokumen')->constrained('t_dokumen_penomoran');
+            $table->string('judul_dokumen');
+            $table->string('dokumen');
+            $table->tinyInteger('status_aktif')->default(1);
+            $table->integer('create_by')->nullable();
+            $table->integer('update_by')->nullable();
+            $table->integer('delete_by')->nullable();
+            $table->datetime('delete_at')->timestamps()->nullable();
+            $table->timestamps();
+        });
+
+        Schema::create('t_dokumen_penomoran', function (Blueprint $table) {
+            $table->increments('id_dokumen_penomoran');
+            $table->integer('id_kategori_penomoran')->unsigned();
+            $table->foreign('id_kategori_penomoran')->references('id_kategori_penomoran')->on('m_kategori_penomoran');
+            $table->integer('id_project')->unsigned();
+            $table->foreign('id_project')->references('id_project')->on('m_project');
+            $table->integer('id_dokumen')->unsigned();
+            //$table->foreignId('id_dokumen')->constrained('m_dokumen');
+            $table->foreign('id_dokumen')->references('id_dokumen')->on('m_dokumen');
+            $table->date('tanggal');
+            $table->string('penomoran');
+            $table->tinyInteger('status_aktif')->default(0);
+            $table->integer('create_by')->nullable();
+            $table->integer('update_by')->nullable();
+            $table->integer('delete_by')->nullable();
+            $table->datetime('delete_at')->timestamps()->nullable();
             $table->timestamps();
         });
     }

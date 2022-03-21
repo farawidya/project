@@ -16,13 +16,37 @@ class CreatedMKategoriPenomoranTable extends Migration
         Schema::create('m_kategori_penomoran', function (Blueprint $table) {
             $table->increments('id_kategori_penomoran');
             $table->string('kategori');
-            $table->tinyInteger('status_aktif');
-            $table->integer('create_by');
-            $table->integer('update_by');
-            $table->integer('delete_by');
-            $table->datetime('delete_at')->timestamps();
+            $table->string('kode');
+            $table->tinyInteger('status_aktif')->default(1);
+            $table->integer('create_by')->nullable();
+            $table->integer('update_by')->nullable();
+            $table->integer('delete_by')->nullable();
+            $table->datetime('delete_at')->timestamps()->nullable();
             $table->timestamps();
         });
+
+        DB::table('m_kategori_penomoran')->insert([[
+            'kategori' => 'Penawaran',
+            'kode' => 'PN',
+        ], [
+            'kategori' => 'Penagihan',
+            'kode' => 'TG',
+        ], [
+            'kategori' => 'Invoice',
+            'kode' => 'INV',
+        ], [
+            'kategori' => 'Kontrak',
+            'kode' => 'SPK',
+        ], [
+            'kategori' => 'MOU',
+            'kode' => 'MOU',
+        ], [
+            'kategori' => 'Fitur',
+            'kode' => 'FTR',
+        ], [
+            'kategori' => 'Flowchart',
+            'kode' => 'FW',
+        ],]);
     }
 
     /**

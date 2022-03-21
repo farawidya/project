@@ -14,7 +14,7 @@ return [
     |
     */
 
-    'title' => 'AdminLTE 3',
+    'title' => 'Admin Project',
     'title_prefix' => '',
     'title_postfix' => '',
 
@@ -46,11 +46,11 @@ return [
     */
 
     'logo' => '<b>Admin</b>Project',
-    'logo_img' => 'vendor/backpacker/Untitled-1-01.png',
+    'logo_img' => 'vendor/spero/logo_spero_biru.png',
     'logo_img_class' => 'brand-image img-circle elevation-3',
     'logo_img_xl' => null,
     'logo_img_xl_class' => 'brand-image-xs',
-    'logo_img_alt' => 'AdminBackpackerTeaching',
+    'logo_img_alt' => 'AdminProject',
 
     /*
     |--------------------------------------------------------------------------
@@ -263,43 +263,43 @@ return [
         [
             'text' => 'Management User',
             'url'  => '/marketing',
-            'icon' => 'fas fa-search-dollar',
+            'icon' => 'fas fa-user',
         ],
         [
             'text' => 'Management Client',
             'url'  => '/client',
-            'icon' => 'fas fa-cogs',
+            'icon' => 'fas fa-building',
         ],
         [
             'text' => 'Management Proyek',
             'url'  => '/proyek',
-            'icon' => 'fas fa-tasks',
+            'icon' => 'fas fa-boxes',
         ],
         [
             'text' => 'Management Task',
             'url'  => '/task',
-            'icon' => 'fas fa-cogs',
+            'icon' => 'fas fa-tasks',
         ],
         [
             'text' => 'Dokumen Project',
             'url'  => '/dokumen',
-            'icon' => 'fas fa-cogs',
+            'icon' => 'fas fa-folder',
         ],
         [
             'text' => 'Management Penomoran Dokumen',
             'url'  => '/nomor',
-            'icon' => 'fas fa-cogs',
+            'icon' => 'fas fa-list-ol',
         ],
         [
             'text' => 'Management Jadwal Meeting',
-            'url'  => '/meeting',
-            'icon' => 'fas fa-cogs',
+            'url'  => '/jadwalmeeting',
+            'icon' => 'fas fa-calendar-alt',
         ],
         
         [
             'text' => 'Management MOM',
             'url'  => '/mom',
-            'icon' => 'fas fa-handshake',
+            'icon' => 'fas fa-file',
         ],
         
         

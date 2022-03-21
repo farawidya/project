@@ -17,17 +17,17 @@ class CreateMProjectTable extends Migration
             $table->increments('id_project');
             $table->integer('id_m_klien')->unsigned();
             $table->foreign('id_m_klien')->references('id_m_klien')->on('m_klien');
-            $table->integer('id_status_task')->unsigned();
-            $table->foreign('id_status_task')->references('id_status_task')->on('m_status_task');
+            $table->integer('id_status_project')->unsigned();
+            $table->foreign('id_status_project')->references('id_status_project')->on('m_status_project');
             $table->string('nama_project');
             $table->string('deskripsi_project');
-            $table->datetime('waktu mulai');
-            $table->datetime('waktu berakhir');
-            $table->tinyInteger('status_aktif');
-            $table->integer('create_by');
-            $table->integer('update_by');
-            $table->integer('delete_by');
-            $table->datetime('delete_at')->timestamps();
+            $table->date('waktumulai');
+            $table->date('waktuberakhir');
+            $table->tinyInteger('status_aktif')->default(1);
+            $table->integer('create_by')->nullable();
+            $table->integer('update_by')->nullable();
+            $table->integer('delete_by')->nullable();
+            $table->datetime('delete_at')->timestamps()->nullable();
             $table->timestamps();
         });
     }

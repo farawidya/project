@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Models\client;
 use Illuminate\Http\Request;
-use App\Http\Controllers\ClientController;
 
 class ClientController extends Controller
 {
@@ -16,10 +15,10 @@ class ClientController extends Controller
     public function index(Request $request)
     {
         $data['title'] = 'Data';
-        $data['q'] = $request->q;
-        $data['client'] = client::where('nama_perusahaan', 'like', '%' . $request->q . '%')
+        $data['client'] = $request->client;
+        $data['client'] = client::where('nama_perusahaan', 'like', '%' . $request->client . '%')
                             ->get();
-        return view('client.index', $data);
+        return view('client.client', $data);
         //
     }
 
@@ -68,25 +67,33 @@ class ClientController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\client  $client
+     * @param  \App\Models\Post  $post
      * @return \Illuminate\Http\Response
      */
     public function show(client $client)
     {
-        //
+        $data['nama_perusahaan'] = ['nama_perusahaan'];
+        $data['nama_klien'] = ['nama_klien'];
+        $data['waktumulai'] = ['waktumulai'];
+        $data['bidang'] = ['bidang'];
+        $data['email'] = ['email'];
+        $data['no_hp'] = ['no_hp'];
+        $data['alamat'] = ['alamat'];
+        $data['client'] = $client;
+        return view('client.show', $data);
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\client  $client
+     * @param  \App\Models\Post  $post
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
     {
-        $data['title'] = 'Ubah';
-        $data['client'] = $client;
-        return view('client.edit', $data);
+        // $data['title'] = 'Ubah';
+        // $data['client'] = $client;
+        // return view('client.edit', $data);
         //
     }
 
@@ -94,7 +101,7 @@ class ClientController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\client  $client
+     * @param  \App\Models\Post  $post
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, client $client)
@@ -109,9 +116,9 @@ class ClientController extends Controller
         ]);
 
         
-        $client = client::where('id_m_klien',$id_m_klien)->first();
+        // $client = client::where('id_m_klien',$id_m_klien)->first();
 
-        $client = client::find($id);
+        // $client = client::find($id);
         $client->nama_perusahaan = $request->nama_perusahaan;
         $client->nama_klien = $request->nama_klien;
         $client->bidang = $request->bidang;
@@ -119,8 +126,7 @@ class ClientController extends Controller
         $client->no_hp = $request->no_hp;
         $client->alamat = $request->alamat;
         $client->save();
-        return redirect()->route('client.index')
-            ->with('success_message', 'Berhasil mengubah client');
+        return redirect('client')->with('success', 'Ubah Berhasil');
         //
     }
 

@@ -10,15 +10,12 @@ class Mom extends Model
 {
     use HasFactory;
     
-    protected $table = 'Mom';
-    protected $primaryKey = 'mom_id';
+    protected $table = 't_mom';
+    protected $primaryKey = 'id_mom';
     
     protected $fillable = [
-        'nama_project',
-        'tanggal',
-        'tempat',
-        'agenda',
-        'hasil',
+        'id_jadwal_meeting',
+        'hasil_pembahasan',
     ];
     
     // function image()

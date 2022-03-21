@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Mom;
+use App\Models\jadwalmeeting;
+use App\Models\Proyek;
 use Illuminate\Http\Request;
 
 class MomController extends Controller
@@ -15,8 +17,13 @@ class MomController extends Controller
     public function index(Request $request)
     {
         $data['title'] = 'Data';
+        $data['jadwalmeeting'] = jadwalmeeting::all();
+        $data['proyek'] = Proyek::all();
         $data['q'] = $request->q;
-        $data['mom'] = Mom::where('nama_project', 'like', '%' . $request->q . '%')->get();
+        $data['mom'] = Mom::where('hasil_pembahasan', 'like', '%' . $request->q . '%')
+                        ->join('m_jadwal_meeting', 'm_jadwal_meeting.id_jadwal_meeting', '=', 't_mom.id_jadwal_meeting')
+                        ->join('m_project', 'm_project.id_project', '=', 'm_jadwal_meeting.id_project')
+                        ->get();
         return view('mom.mom', $data);
     }
 
@@ -41,26 +48,13 @@ class MomController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'nama_project' => 'required',
-            'tanggal' => 'required',
-            'tempat' => 'required',
-            'agenda' => 'required',
-            'hasil' => 'required',
+            'id_jadwal_meeting' => 'required',
+            'hasil_pembahasan' => 'required',
         ]);
 
         $mom = new Mom();
-        $mom->nama_project = $request->nama_project;
-        $mom->tanggal = $request->tanggal;
-        $mom->tempat = $request->tempat;
-        $mom->agenda = $request->agenda;
-        $mom->hasil = $request->hasil;
-        // if ($request->hasFile('image')) {
-        //     $image = $request->file('image');
-        //     $name = rand(1000, 9999) . $image->getClientOriginalName();
-        //     $image->move('images/post', $name);
-        //     $post->image = $name;
-        // }
-        $mom->hasil = $request->hasil;
+        $mom->id_jadwal_meeting = $request->id_jadwal_meeting;
+        $mom->hasil_pembahasan = $request->hasil_pembahasan;
         $mom->save();
         return redirect('mom')->with('success', 'Tambah Berhasil');
     }
@@ -84,12 +78,13 @@ class MomController extends Controller
      * @param  \App\Models\Post  $post
      * @return \Illuminate\Http\Response
      */
-    public function edit(Mom $mom)
+
+    public function edit(Mom $id_mom)
     {
-        $data['title'] = 'Ubah';
-        $data['row'] = $mom;
-        // $data['categories'] = ['Laki-Laki', 'Perempuan'];
-        return view('mom.edit', $data);
+    $where = array('id_mom' => $id_mom);
+            $post  = Mom::where($where)->first();
+        
+            return response()->json($post);
     }
 
     /**
@@ -102,28 +97,15 @@ class MomController extends Controller
     public function update(Request $request, Mom $mom)
     {
         $request->validate([
-            'nama_project' => 'required',
-            'tanggal' => 'required',
-            'tempat' => 'required',
-            'agenda' => 'required',
-            'hasil' => 'required',
+            'id_jadwal_meeting' => 'required',
+            'hasil_pembahasan' => 'required',
         ]);
 
-        $mom->nama_project = $request->nama_project;
-        $mom->tanggal = $request->tanggal;
-        $mom->tempat = $request->tempat;
-        $mom->agenda = $request->agenda;
-        $mom->hasil = $request->hasil;
-        // if ($request->hasFile('image')) {
-        //     $post->delete_image();
-        //     $image = $request->file('image');
-        //     $name = rand(1000, 9999) . $image->getClientOriginalName();
-        //     $image->move('images/post', $name);
-        //     $post->image = $name;
-        // }
-        $mom->hasil = $request->hasil;
+        $mom = new Mom();
+        $mom->id_jadwal_meeting = $request->id_jadwal_meeting;
+        $mom->hasil_pembahasan = $request->hasil_pembahasan;
         $mom->save();
-        return redirect('mom')->with('success', 'Ubah Berhasil');
+        return redirect('mom')->with('success', 'Tambah Berhasil');
     }
 
     /**

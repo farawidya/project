@@ -16,13 +16,20 @@ class CreateMStatusProjectTable extends Migration
         Schema::create('m_status_project', function (Blueprint $table) {
             $table->increments('id_status_project');
             $table->string('status_project');
-            $table->tinyInteger('status_aktif');
-            $table->integer('create_by');
-            $table->integer('update_by');
-            $table->integer('delete_by');
-            $table->datetime('delete_at')->timestamps();
             $table->timestamps();
         });
+
+        DB::table('m_status_project')->insert([[
+            'status_project' => 'Masuk',
+        ], [
+            'status_project' => 'Pending',
+        ], [
+            'status_project' => 'Berjalan',
+        ], [
+            'status_project' => 'Cancel',
+        ], [
+            'status_project' => 'Selesai',
+        ],]);
     }
 
     /**

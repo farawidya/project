@@ -15,18 +15,18 @@ class CreateTDokumenStatusProjectTable extends Migration
     {
         Schema::create('t_dokumen_status_project', function (Blueprint $table) {
             $table->increments('id_dokumen_status_project');
-            $table->integer('id_user')->unsigned();
-            $table->foreign('id_user')->references('id_user')->on('m_user');
             $table->integer('id_log_project')->unsigned();
             $table->foreign('id_log_project')->references('id_log_project')->on('t_log_project');
-            $table->integer('id_status_project')->unsigned();
-            $table->foreign('id_status_project')->references('id_status_project')->on('m_status_project');
-            $table->string('dokumen');
-            $table->tinyInteger('status_aktif');
-            $table->integer('create_by');
-            $table->integer('update_by');
-            $table->integer('delete_by');
-            $table->datetime('delete_at')->timestamps();
+            $table->integer('id_kategori_penomoran')->unsigned();
+            $table->foreign('id_kategori_penomoran')->references('id_kategori_penomoran')->on('m_kategori_penomoran');
+            $table->integer('id_dokumen')->unsigned();
+            // $table->foreignId('id_dokumen')->constrained('m_dokumen');
+            $table->foreign('id_dokumen')->references('id_dokumen')->on('m_dokumen');
+            $table->tinyInteger('status_aktif')->default(1);
+            $table->integer('create_by')->nullable();
+            $table->integer('update_by')->nullable();
+            $table->integer('delete_by')->nullable();
+            $table->datetime('delete_at')->timestamps()->nullable();
             $table->timestamps();
         });
     }

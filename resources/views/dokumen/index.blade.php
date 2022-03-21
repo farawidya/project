@@ -33,7 +33,22 @@
                         </th>
                     </tr>
                 </thead>
-                <tbody>
+                <?php $no = 1; ?>
+                @foreach ($proyek as $proyek)
+                    <tr>
+                        <td>{{ $no++ }}</td>
+                        <td>{{ $proyek->nama_project }}</td>
+                        <td>{{ $proyek->nama_perusahaan }}</td>
+                        <td>{{ $proyek->waktuberakhir }}</td>
+                        <td>
+                            <center><a class="btn btn-sm btn-info" target="_blank" href="{{route('dokumen.view', ['id' => $proyek->id_project])}}">
+                                Lihat Dokumen 
+                                <i class="fas fa-external-link-alt"></i>
+                            </a>
+                            </center>
+                    </tr>
+                @endforeach 
+                {{-- <tbody>
                     <tr>
                         <td>
                             <center>1</center>
@@ -51,7 +66,7 @@
                             <center><a class="btn btn-sm btn-info" target="_blank" href="dokumen/view">Lihat Dokumen</a></center>
                         </td>
                     </tr>
-                </tbody>
+                </tbody> --}}
             </table>
         </div>
     </div>

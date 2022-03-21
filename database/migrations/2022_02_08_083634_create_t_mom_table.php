@@ -18,11 +18,11 @@ class CreateTMomTable extends Migration
             $table->integer('id_jadwal_meeting')->unsigned();
             $table->foreign('id_jadwal_meeting')->references('id_jadwal_meeting')->on('m_jadwal_meeting');
             $table->text('hasil_pembahasan');
-            $table->tinyInteger('status_aktif');
-            $table->integer('create_by');
-            $table->integer('update_by');
-            $table->integer('delete_by');
-            $table->datetime('delete_at')->timestamps();
+            $table->tinyInteger('status_aktif')->default(1);
+            $table->integer('create_by')->nullable();
+            $table->integer('update_by')->nullable();
+            $table->integer('delete_by')->nullable();
+            $table->datetime('delete_at')->timestamps()->nullable();
             $table->timestamps();
         });
     }

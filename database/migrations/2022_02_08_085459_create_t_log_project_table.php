@@ -19,12 +19,11 @@ class CreateTLogProjectTable extends Migration
             $table->foreign('id_project')->references('id_project')->on('m_project');
             $table->integer('id_user')->unsigned();
             $table->foreign('id_user')->references('id_user')->on('m_user');
-            $table->integer('task');
-            $table->tinyInteger('status_aktif');
-            $table->integer('create_by');
-            $table->integer('update_by');
-            $table->integer('delete_by');
-            $table->datetime('delete_at')->timestamps();
+            $table->tinyInteger('status_aktif')->default(1);
+            $table->integer('create_by')->nullable();
+            $table->integer('update_by')->nullable();
+            $table->integer('delete_by')->nullable();
+            $table->datetime('delete_at')->timestamps()->nullable();
             $table->timestamps();
         });
     }

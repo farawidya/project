@@ -21,7 +21,7 @@ class CreateMUserTable extends Migration
             $table->string('alamat');
             $table->string('email');
             $table->bigInteger('nohp');
-            $table->tinyInteger('status_aktif')->default(0);
+            $table->tinyInteger('status_aktif')->default(1);
             $table->integer('create_by')->nullable();
             $table->integer('update_by')->nullable();
             $table->integer('delete_by')->nullable();

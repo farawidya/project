@@ -17,14 +17,15 @@ class CreateMJadwalMeetingTable extends Migration
             $table->increments('id_jadwal_meeting');
             $table->integer('id_project')->unsigned();
             $table->foreign('id_project')->references('id_project')->on('m_project');
-            $table->datetime('tanggal');
+            $table->date('start_date');
+            $table->date('end_date');
             $table->string('tempat');
             $table->string('agenda');
-            $table->tinyInteger('status_aktif');
-            $table->integer('create_by');
-            $table->integer('update_by');
-            $table->integer('delete_by');
-            $table->datetime('delete_at')->timestamps();
+            $table->tinyInteger('status_aktif')->default(1);
+            $table->integer('create_by')->nullable();
+            $table->integer('update_by')->nullable();
+            $table->integer('delete_by')->nullable();
+            $table->datetime('delete_at')->timestamps()->nullable();
             $table->timestamps();
         });
     }

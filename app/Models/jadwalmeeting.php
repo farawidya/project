@@ -5,25 +5,23 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Marketing extends Model
+class jadwalmeeting extends Model
 {
     use HasFactory;
-    
-    protected $table = 'm_user';
-    protected $primaryKey = 'id_user';
+    protected $table = 'm_jadwal_meeting';
+    protected $primaryKey = 'id_jadwal_meeting';
     
     protected $fillable = [
-        'id_akun',
-        'nama',
-        'alamat',
-        'email',
-        'nohp',
+        'id_project',
+        'start_date',
+        'end_date',
+        'tempat',
+        'agenda',
     ];
-    
-    public function akun_user(){
-        return $this->belongsTo('App\Models\akun_user', 'id_akun', 'id_akun');
+    public function proyek(){
+        return $this->belongsTo('App\Models\Proyek', 'id_project', 'id_project');
     }
-    
+
     function image()
     {
         if ($this->image && file_exists(public_path('images/post/' . $this->image)))
@@ -31,11 +29,10 @@ class Marketing extends Model
         else
             return asset('images/no_image.png');
     }
-    
+
     function delete_image()
     {
         if ($this->image && file_exists(public_path('images/post/' . $this->image)))
             return unlink(public_path('images/post/' . $this->image));
     }
-    }
-    
+}

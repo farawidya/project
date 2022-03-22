@@ -15,6 +15,7 @@ class level_akun_user extends Model
         'level',
     ];
     public function akun_user(){
-        return $this->hasMany(akun_user::class());
+        // return $this->hasMany(akun_user::class());
+        return $this->hasMany('App\Models\akun_user', 'id_level_akun_user', 'id_level_akun_user');
     }
 }

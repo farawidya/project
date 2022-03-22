@@ -2,13 +2,16 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\akun_user;
 use App\Models\Proyek;
 use App\Models\Statusproject;
 use App\Models\client;
+use App\Models\level_akun_user;
 use App\Models\Marketing;
 use App\Models\Tim;
 use Illuminate\Http\Request;
 use Auth;
+use Illuminate\Support\Facades\Response;
 
 class ProyekController extends Controller
 {
@@ -59,17 +62,21 @@ class ProyekController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-    public function tim(Request $request)
+    public function tim(Request $request, $id)
     {
         $data['title'] = 'Tambah Tim';
         $data['marketing'] = Marketing::all();
-        $data['proyek'] = Proyek::all();
+        $data['proyek'] = Proyek::find($id);
+        // dd($data['proyek']);
         // $data['status_project'] = Statusproject::all();
         $data['q'] = $request->q;
         $data['tim'] = Tim::where('id_log_project', 'like', '%' . $request->q . '%')
                             ->join('m_project', 'm_project.id_project', '=', 't_log_project.id_project')
                             ->join('m_user', 'm_user.id_user', '=', 't_log_project.id_user')
                             ->get();
+
+        // $data['tim'] = Tim::all();
+
 
         return view('proyek.tim', $data);
     }
@@ -93,6 +100,11 @@ class ProyekController extends Controller
     }
 
     public function deleteTim($id) {
+        
+        // $data = akun_user::where('id_akun', $id)->get();
+        // dd($data[0]->id_level_akun_user);
+
+
         $tim = Tim::find($id);
         $tim->delete();
 
@@ -243,4 +255,14 @@ class ProyekController extends Controller
         $proyek->delete();
         return redirect('proyek')->with('success', 'Hapus Berhasil');
     }
+
+    public function getJabatan($id){
+        $data = akun_user::where('id_akun', $id)->get();
+        // dd($data[0]->level());
+
+        // dd($data);
+        $jabatan = level_akun_user::where('id_level_akun_user', $data[0]->id_level_akun_user)->get();
+        return json_encode($jabatan);
+    }
+
 }

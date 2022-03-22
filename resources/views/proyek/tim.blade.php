@@ -10,8 +10,9 @@
     @if (session('success'))
         <p class="alert alert-success">{{ session('success') }}</p>
     @endif
+    <meta name="csrf-token" content="{{ csrf_token() }}" />
     <div class="card">
-        @foreach ($proyek as $p)
+        {{-- @foreach ($proyek as $p) --}}
         <div class="card-header" style="background-color: #17a2b8;color: #ffffff;">
             <h3 class="card-title"><b>Data Tim Project</b></h3>
         </div>
@@ -20,18 +21,18 @@
             <input type="hidden" value="" name="" id="" />
             <dl class="row col-sm-8">
                 <dt class="col-sm-2">Nama Project </dt>
-                <dd class="col-sm-10" id="nama_project">: {{$p->nama_project}}</dd>
+                <dd class="col-sm-10" id="nama_project">: {{$proyek->nama_project}}</dd>
                 <dt class="col-sm-2">Client </dt>
-                <dd class="col-sm-10" id="nama_klien">: {{$p->klien->nama_perusahaan}}</dd>
+                <dd class="col-sm-10" id="nama_klien">: {{$proyek->klien->nama_perusahaan}}</dd>
                 <dt class="col-sm-2">Deadline </dt>
-                <dd class="col-sm-10" id="waktu_berakhir">: {{$p->waktuberakhir}}</dd>
+                <dd class="col-sm-10" id="waktu_berakhir">: {{$proyek->waktuberakhir}}</dd>
                 {{-- <dt class="col-sm-2">Tingkat </dt>
                 <dd class="col-sm-10" id="tingkat"></dd>
                 <dt class="col-sm-2">Kelas </dt>
                 <dd class="col-sm-10" id="kelas"></dd> --}}
             </dl>
         </div>
-        @endforeach
+        {{-- @endforeach --}}
     </div>
     <div class="card card-default">
         <div class="card-body table-responsive">
@@ -57,17 +58,18 @@
                     <div class="modal-body">
                         <form action="{{ route('proyek.tim.store') }}" method="POST" enctype="multipart/form-data">
                             @csrf
-                            <input type="hidden" name="id_project" value="{{$proyek[0]->id_project}}">
+                            {{-- <input type="hidden" name="id_project" value="{{$proyek[0]->id_project}}"> --}}
                             <div class="form-group row">
                                 <label class="col-sm-2 control-label" for="demo-hor-inputemail">Nama</label>
                                 <div class="col-sm-10">
-                                    <select class="form-control" name="id_user">
+                                    <select class="form-control" id="name_user" name="id_user" onchange="autofill()" >
+                                        <option value=""></option>
                                         @foreach ($marketing as $marketings)
-                                            @if ($marketings == old('marketing'))
-                                                <option value="{{ $marketings->id_user }}" selected>{{ $marketings->nama }}</option>
-                                                 @else
+                                            {{-- @if ($marketings == old('marketing')) --}}
+                                                {{-- <option value="{{ $marketings->id_user }}" selected>{{ $marketings->nama }}</option> --}}
+                                                 {{-- @else --}}
                                                     <option value="{{ $marketings->id_user }}">{{ $marketings->nama }}</option>
-                                            @endif
+                                            {{-- @endif --}}
                                         @endforeach
                                     </select>
                                     </div>
@@ -77,7 +79,8 @@
                              <label class="col-sm-2 control-label" for="demo-hor-inputemail">Jabatan</label>
                                  <div class="col-sm-10">
                                     @foreach ($marketing as $marketings)
-                                    <a class="form-control" placeholder="Jabatan" type="text" name="level" value="{{ $marketings->id_user }}">{{ $marketings->level }} </a>
+                                    {{-- <a class="form-control" placeholder="Jabatan" type="text" name="level" value="{{ $marketings->id_user }}">{{ $marketings->level }} </a> --}}
+                                    <input type="text" class="form-control" disabled type="text" name="level" id="jabatan">
                                     @endforeach
                                  </div>
                          </div>
@@ -158,5 +161,29 @@
         $('#example1').DataTable({
             "responsive": true,
         });
+
+        function autofill(){
+            let id = $("#name_user").val();
+                
+                    $.ajax({
+                        url: "/getJabatan/"+id,
+                        success: function(res){
+                            obj = JSON.parse(res);
+                            if(obj[0].level==''){
+                                $("#jabatan").val('');
+                            }
+                            else{
+                                $("#jabatan").val(obj[0].level);
+                            }
+                        },
+                        error: function(err){
+                            $("#jabatan").val('');
+                        }
+                    });
+                    
+            
+            // }
+        }
+
     </script>
 @stop

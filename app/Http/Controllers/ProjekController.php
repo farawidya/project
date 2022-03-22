@@ -112,4 +112,8 @@ class ProjekController extends Controller
         $projek->delete();
         return redirect('projek')->with('success', 'Hapus Data Berhasil');
     }
+
+
+    
+
 }

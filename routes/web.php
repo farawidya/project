@@ -143,6 +143,7 @@ Route::get('/task.anggota', function () {
 });
 
 Route::get('/proyek.tim/{id}', [App\Http\Controllers\ProyekController::class, 'tim'])->name('proyek.tim');
+Route::get('/getJabatan/{id}', [ProyekController::class, 'getJabatan']);
 Route::post('/proyek.tim/addTim', [App\Http\Controllers\ProyekController::class, 'addTim'])->name('proyek.tim.store');
 Route::delete('/proyek.tim/deleteTim/{id}', [App\Http\Controllers\ProyekController::class, 'deleteTim'])->name('proyek.tim.delete');
 

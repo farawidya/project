@@ -15,7 +15,7 @@
             <form class="form-inline">
                 <div class="form-group mr-1">
                     <input class="form-control" type="text" name="q" value="{{ $q }}"
-                        placeholder="Pencarian..." />
+                        placeholder="Penca  rian..." />
                 </div>
                 <div class="form-group mr-1">
                     <button class="btn btn-success">Refresh</button>
